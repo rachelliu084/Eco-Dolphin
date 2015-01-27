@@ -1,6 +1,6 @@
 #include "Relay.h"
 #include <string.h>
-
+#include <Servo.h>
 #include "Sonar.h"
 #include "Thruster.h"
 #include "Depth.h"
