@@ -2,7 +2,6 @@
 #define _THRUSTER_H_
 
 #include <Arduino.h>
-#include <Servo.h>
 
 #define MOTOR1_PIN 4
 #define MOTOR2_PIN 6
