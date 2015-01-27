@@ -1,0 +1,71 @@
+#include<SPI.h>
+#include <string.h>
+#include <Servo.h>
+#include "NRF24L01.h"
+#include "Sonar.h"
+#include "Thruster.h"
+#include "Depth.h"
+
+extern byte TX_Addr[TX_Addr_Num];
+extern byte RX_Addr[RX_Addr_Num];
+
+extern byte Pipe0[5];
+extern byte Pipe1[5];  
+extern byte Pipe2[5];
+extern byte Pipe3[5];
+extern byte Pipe4[5];
+extern byte Pipe5[5];
+
+extern Servo motor1;
+extern Servo motor2;
+extern Servo motor3;
+extern Servo motor4;
+
+
+extern unsigned char TX_Data[TX_Data_Num];
+extern unsigned char RX_Data[RX_Data_Num];
+
+extern byte Status;
+
+int Flag_Serial = 0;
+int SonarInit = 0;
+int THU[4] = {1600,1600,1500,1500};
+
+int INT_TX = 0;
+int INT_RX = 0;
+int INT_MAX = 0;
+
+void nRF()
+{
+  Status = SPI_RW_Reg(R_REGISTER + STATUS, 0x00);
+  if(Status & TX_DS)  {INT_TX = 1; Serial.println("Sent");
+  if(Status & MAX_RT)  {INT_MAX = 1; Serial.println("Failed");
+  if(Status & RX_DR)  {INT_RX = 1; Serial.println("Received");
+}
+
+
+void setup()
+{
+  Serial.begin(9600);
+  Thruster_Init();
+//  Serial.println("a1");
+  Thruster_Stop();
+//    Serial.println("a2");
+  SPI_Init();
+//  Serial.println("a3");
+  nRF24L01_Init();
+//  Serial.println("a4");
+//  SonarInit = Sonar_Init();
+//  Serial.println("a5");
+// Thruster_Speed(THU); 
+  attachInterrupt(0, nRF, FALLING );
+}
+
+void loop()
+{
+  delay(2000);
+  nRF24L01_TX(TX_Addr, RX_Addr, TX_Data, TX_Data_Num);
+  delay(1);
+//  Status = SPI_RW_Reg(R_REGISTER + STATUS, 0x00);
+//  Serial.print("asd");
+}
