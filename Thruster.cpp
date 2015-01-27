@@ -1,10 +1,4 @@
 #include "Thruster.h"
-#include <Servo.h>
-
-Servo motor1;
-Servo motor2;
-Servo motor3;
-Servo motor4;
 
 void Thruster_Init()
 {
