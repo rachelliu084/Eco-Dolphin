@@ -2,6 +2,7 @@
 #define _THRUSTER_H_
 
 #include <Arduino.h>
+#include <Servo.h>
 
 #define MOTOR1_PIN 4
 #define MOTOR2_PIN 6
@@ -12,5 +13,6 @@
 
 void Thruster_Speed(int *TH);
 void Thruster_Stop();
+void Thruster_Init();
 
 #endif
