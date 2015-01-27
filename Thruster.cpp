@@ -1,4 +1,10 @@
 #include "Thruster.h"
+#include <Servo.h>
+
+Servo motor1;
+Servo motor2;
+Servo motor3;
+Servo motor4;
 
 void Thruster_Init()
 {
@@ -26,7 +32,6 @@ void Thruster_Speed(int *TH)
   motor4.writeMicroseconds(TH[3]);
 //  Serial.println("4");
   delay(TH[4]);
-  
   
 }
 
