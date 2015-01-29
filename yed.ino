@@ -3,7 +3,7 @@
 #include <Servo.h>
 #include "Sonar.h"
 #include "Thruster.h"
-#include "Depth.h"
+//#include "Depth.h"
 
 #define ON 1
 #define OFF 0
@@ -28,24 +28,29 @@ char Data_Sonar_String[6];
 
 void setup()
 {
-  Serial.begin(9600);
-  Relay(ON);
+//  Serial.begin(4800);
+//  Relay(ON);
   Thruster_Init();
 //  Serial.println("a1");
   Thruster_Stop();
 //    Serial.println("a2");
-
-//  Serial.println("a3");
-//  Serial.println("a4");
-  SonarInit = Sonar_Init();
+//  SonarInit = Sonar_Init();
 //  Serial.println("a5");
 // Thruster_Speed(THU); 
 }
 
 void loop()
 {
-  Sonar_Rx(Data_Sonar_String);
-  if(strcmp(Data_Sonar_String,"L2") == 0)
+ /* Serial.println("a2");
+  Relay(ON);
+  digitalWrite(11, HIGH);
+  delay(2000);
+  Serial.println("a5");
+  Relay(OFF);
+  digitalWrite(11, LOW);
+  delay(2000);*/
+//  Sonar_Rx(Data_Sonar_String);
+//  if(strcmp(Data_Sonar_String,"L2") == 0)
   {
     for(int i=0; i < 4; i++)
     {
@@ -54,8 +59,8 @@ void loop()
     }
     Thruster_Stop();
   }
-  
-  if(strcmp(Data_Sonar_String,"L1") == 0)
+  delay(10000);
+//  if(strcmp(Data_Sonar_String,"L1") == 0)
   {
     Thruster_Speed(THLL);//change heading first
     for(int i=0; i < 4; i++)
@@ -65,7 +70,8 @@ void loop()
     }
     Thruster_Stop();
   }
-  if(strcmp(Data_Sonar_String,"M2") == 0)
+  delay(10000);
+//  if(strcmp(Data_Sonar_String,"M2") == 0)
   {
     for(int i=0; i < 4; i++)
     {
@@ -74,8 +80,8 @@ void loop()
     }
     Thruster_Stop();
   }
-  
-  if(strcmp(Data_Sonar_String,"M1") == 0)
+  delay(10000);
+//  if(strcmp(Data_Sonar_String,"M1") == 0)
   {
     Thruster_Speed(THLM);//change heading first
     for(int i=0; i < 4; i++)
@@ -85,8 +91,8 @@ void loop()
     }
     Thruster_Stop();
   }  
-  
-    if(strcmp(Data_Sonar_String,"H2") == 0)
+  delay(10000);
+//    if(strcmp(Data_Sonar_String,"H2") == 0)
   {
     for(int i=0; i < 4; i++)
     {
@@ -95,8 +101,8 @@ void loop()
     }
     Thruster_Stop();
   }
-  
-  if(strcmp(Data_Sonar_String,"H1") == 0)
+  delay(10000);
+//  if(strcmp(Data_Sonar_String,"H1") == 0)
   {
     Thruster_Speed(THLH);//change heading first
     for(int i=0; i < 4; i++)
@@ -106,6 +112,7 @@ void loop()
     }
     Thruster_Stop();
   }
+  delay(10000);
+//  strcpy(Data_Sonar_String,"");
   
-  strcpy(Data_Sonar_String,"");
 }
