@@ -11,13 +11,13 @@
 int Flag_Serial = 0;
 int SonarInit = 0;
 
-int THSL[5] = {1530,1530,1500,1500,15000};// assume 1 feet per second
-int THLL[5] = {1500,1530,1500,1500,7000};
-int THRL[5] = {1530,1500,1500,1500,7000};
+int THSL[5] = {1550,1550,1500,1500,15000};// assume 1 feet per second
+int THLL[5] = {1500,1550,1500,1500,7000};
+int THRL[5] = {1550,1500,1500,1500,7000};
 
-int THSM[5] = {1550,1550,1500,1500,7500};// assume 2 feet per second
-int THLM[5] = {1500,1550,1500,1500,6000};// assume 
-int THRM[5] = {1550,1500,1500,1500,6000};
+int THSM[5] = {1560,1560,1500,1500,7500};// assume 2 feet per second
+int THLM[5] = {1500,1560,1500,1500,6000};// assume 
+int THRM[5] = {1560,1500,1500,1500,6000};
 
 int THSH[5] = {1570,1570,1500,1500,5000};// assume 3 feet per second
 int THLH[5] = {1500,1570,1500,1500,5000};
