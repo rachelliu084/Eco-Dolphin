@@ -7,6 +7,7 @@
 
 #define ON 1
 #define OFF 0
+#define DELAY 6000
 
 int Flag_Sonar = 0;
 int Flag_Serial_0 = 0;
@@ -198,7 +199,7 @@ void loop()
     {
       Sonar_Tx("L1");
       Flag_Sonar = 0;
-      delay(6000);
+      delay(DELAY);
     }
     for(int i=0; i < 4; i++)
     {
@@ -214,7 +215,7 @@ void loop()
     {
       Sonar_Tx("L2");
       Flag_Sonar = 0;
-      delay(6000);
+      delay(DELAY);
     }
 //    Thruster_Speed(THLL);//change heading first
     for(int i=0; i < 4; i++)
@@ -231,7 +232,7 @@ void loop()
     {
       Sonar_Tx("M1");
       Flag_Sonar = 0;
-      delay(6000);
+      delay(DELAY);
     }
     for(int i=0; i < 4; i++)
     {
@@ -247,7 +248,7 @@ void loop()
     {
       Sonar_Tx("M2");
       Flag_Sonar = 0;
-      delay(6000);
+      delay(DELAY);
     }
 //    Thruster_Speed(THLM);//change heading first
     for(int i=0; i < 4; i++)
@@ -264,7 +265,7 @@ void loop()
     {
       Sonar_Tx("H1");
       Flag_Sonar = 0;
-      delay(6000);
+      delay(DELAY);
     }
     for(int i=0; i < 4; i++)
     {
@@ -280,7 +281,7 @@ void loop()
     {
       Sonar_Tx("H2");
       Flag_Sonar = 0;
-      delay(6000);
+      delay(DELAY);
     }
 //    Thruster_Speed(THLH);//change heading first
     for(int i=0; i < 4; i++)
