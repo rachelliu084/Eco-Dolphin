@@ -189,7 +189,8 @@ void setup()
 
 void loop()
 {
-  //Speed_Test();
+  while(1)    Speed_Test();
+  
   Flag_Sonar = Sonar_Rx(Data_Sonar);
   if(strcmp(Data_Sonar,"L1") == 0)
   {
