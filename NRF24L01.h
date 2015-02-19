@@ -42,7 +42,7 @@
 #define MAX_RT   0x10
 
 
-#define CSN 53 //SS
+#define CSN 53 //SS  Mega 53 Uno 10
 #define IRQ 3//interrupt
 #define CE 2//config
 #define LED_Tx 47//interrupt
