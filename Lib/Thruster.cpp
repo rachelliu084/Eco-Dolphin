@@ -6,7 +6,7 @@ Servo motor2;
 Servo motor3;
 Servo motor4;
 
-void Thruster_Init()
+int Thruster_Init()
 {
   //Serial.println("0");
   motor1.attach(MOTOR1_PIN);
@@ -19,6 +19,7 @@ void Thruster_Init()
   motor3.writeMicroseconds(MID_SIGNAL);
   motor4.writeMicroseconds(MID_SIGNAL);
   delay(10000);
+  return 1;
 }
 
 void Thruster_Speed(int *TH)
