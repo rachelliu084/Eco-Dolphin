@@ -13,6 +13,6 @@
 
 void Thruster_Speed(int *TH);
 void Thruster_Stop();
-void Thruster_Init();
+int Thruster_Init();
 
 #endif
