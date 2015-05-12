@@ -2,19 +2,20 @@ import serial
 import math
 import time
 ser = serial.Serial('/dev/ttyACM0',57600, timeout=1)
-x = '1'
-y = '2'
-z = '3'
-mag = '4'
-gyro = '5'
-right = '6'
-left = '7'
-rise = '8'
-dive = '9'
-idle = '10'
-sonarpos = '11'
-forward = '12'
-backward = '13'
+x = 'Accelx'
+y = 'Accely'
+z = 'Accelz'
+gyrox = 'Gyrox'
+gyroy = 'Gyroy'
+gyroz = 'Gyroz'
+# right = '6'
+# left = '7'
+# rise = '8'
+# dive = '9'
+# idle = '10'
+# sonarpos = '11'
+# forward = '12'
+# backward = '13'
 
 targetmag = 89
 
@@ -68,7 +69,7 @@ def getcoordinate():
 try:
         while 1:
           # coor =  getcoordinate()
-           ser.write(x)
+           ser.write(x) 
            responsex = ser.readline()
            ser.write(y)
            responsey = ser.readline()
