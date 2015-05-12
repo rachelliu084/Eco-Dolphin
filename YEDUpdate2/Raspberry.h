@@ -5,7 +5,7 @@
 #include <string.h>
 
 #define Raspberry_Data_Width 18  //include '\0' which is the null termination character
-#define Raspberry_Baud_Rate 4800
+#define Raspberry_Baud_Rate 57600
 
 int Read_Serial_0(char *Data);
 
