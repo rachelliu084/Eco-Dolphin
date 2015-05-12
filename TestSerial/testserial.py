@@ -9,15 +9,17 @@ z = 'Accelz'
 gyrox = 'Gyrox'
 gyroy = 'Gyroy'
 gyroz = 'Gyroz'
-pow = 'PowerOn'
-# right = '6'
-# left = '7'
-# rise = '8'
-# dive = '9'
-# idle = '10'
-# sonarpos = '11'
-# forward = '12'
-# backward = '13'
+pwr = 'PowerOn'
+pwroff = 'PowerOFF'
+move = 'Motion'
+right = 'Turn right'
+left = 'Turn left'
+rise = 'Surface'
+dive = 'Descend'
+idle = 'Dead zone'
+sonarpos = 'Position'
+forward = 'Go straight'
+backward = 'Go back'
 
 targetmag = 89
 
@@ -75,86 +77,87 @@ def getcoordinate():
 
 
 try:
-        ser.write(pow)
-        sleep(10)
+        ser.write(pwr)
+        #sleep(10)
         while 1:
           # coor =  getcoordinate()
-           ser.write(x) 
-           responsex = ser.readline()
-           ser.write(y)
-           responsey = ser.readline()
-           ser.write(z)
-           responsez = ser.readline()
-           ser.write(gyrox)
-           anglex = ser.readline()
-           ser.write(gyroy)
-           angley = ser.readline()
-           ser.write(gyroz)
-           anglez = ser.readline()
-           print responsex
-           print responsey
-           print responsez
-           xcoor = float(responsex)
-           ycoor = float(responsey)
-           zcoor = float(responsez)
-           print xcoor
-           print ycoor
-           print zcoor
-           #ser.write(mag)
-           #responsemag = ser.readline()
-           #if(targetmag < responsemag):
+           responsepwr = ser.readline()
+           if (responsepwr == 'Ready'
+             ser.write(x) 
+             responsex = ser.readline()
+             ser.write(y)
+             responsey = ser.readline()
+             ser.write(z)
+             responsez = ser.readline()
+             ser.write(gyrox)
+             anglex = ser.readline()
+             ser.write(gyroy)
+             angley = ser.readline()
+             ser.write(gyroz)
+             anglez = ser.readline()
+             print responsex
+             print responsey
+             print responsez
+             xcoor = float(responsex)
+             ycoor = float(responsey)
+             zcoor = float(responsez)
+             print xcoor
+             print ycoor
+             print zcoor
+             #ser.write(mag)
+             #responsemag = ser.readline()
+             #if(targetmag < responsemag):
              #ser.write(left)
              #print float(responsemag)
-           #elif(targetmag > responsemag):
+             #elif(targetmag > responsemag):
               # ser.write(right)
                #print float(responsemag)
 
-          # else:
+             # else:
              # ser.write(idle)
              # ser.write(sonarpos)
-              #check(sonar) position
-            # if(!waypoint):
-              # continue
-           # else:
+             # check(sonar) position
+             # if(!waypoint):
+             # continue
+             # else:
                 #hover(targetheading)
 
 
 
-           diffx = xcoor - prevx
-           diffy = ycoor - prevy
-           diffz = zcoor - prevz
-           currentx = deltax + prevdeltax
-           currenty = deltay + prevdeltay
-           currentz = deltaz + prevdeltaz
-           diffanglex = anglex - preanglex
-           diffangley = angley - preangley
-           diffanglez = anglez - preanglez
-          
+             diffx = xcoor - prevx
+             diffy = ycoor - prevy
+             diffz = zcoor - prevz
+             currentx = deltax + prevdeltax
+             currenty = deltay + prevdeltay
+             currentz = deltaz + prevdeltaz
+             diffanglex = anglex - preanglex
+             diffangley = angley - preangley
+             diffanglez = anglez - preanglez
 
 #find change in time, angle, acceleration, and distance in x,y,z
-           difftime = time.clock() - prevtime
-           diffaccel = math.sqrt((math.pow(diffx,2))+(math.pow(diffy,2))+(math.pow(diffz,2)))
-           diffangle = math.sqrt((math.pow(diffanglex,2))+(math.pow(diffangley,2))+(math.pow(diffanglez,2)))
-           deltax = 0.5*diffx*math.pow(difftime,2)
-           deltay = 0.5*diffy*math.pow(difftime,2)
-           deltaz = 0.5*diffz*math.pow(difftime,2)
+             difftime = time.clock() - prevtime
+             diffaccel = math.sqrt((math.pow(diffx,2))+(math.pow(diffy,2))+(math.pow(diffz,2)))
+             diffangle = math.sqrt((math.pow(diffanglex,2))+(math.pow(diffangley,2))+(math.pow(diffanglez,2)))
+             deltax = 0.5*diffx*math.pow(difftime,2)
+             deltay = 0.5*diffy*math.pow(difftime,2)
+             deltaz = 0.5*diffz*math.pow(difftime,2)
 #reassign the previous to the current
-           prevx = xcoor
-           prevy = ycoor
-           prevz = zcoor
-           prevdeltax = deltax
-           prevdeltay = deltay
-           prevdeltaz = deltaz
-           preanglex = anglex
-           preangley = angley
-           preanglez = anglez
-           prevtime = time.clock()
-           #print output
-           print diffaccel
-           print currentx
-           print currenty
-           print currentz
-           print difftime
+             prevx = xcoor
+             prevy = ycoor
+             prevz = zcoor
+             prevdeltax = deltax
+             prevdeltay = deltay
+             prevdeltaz = deltaz
+             preanglex = anglex
+             preangley = angley
+             preanglez = anglez
+             prevtime = time.clock()
+             #print output
+             print diffaccel
+             print currentx
+             print currenty
+             print currentz
+             print difftime
 
 except KeyboardInterrupt:
         ser.close()
