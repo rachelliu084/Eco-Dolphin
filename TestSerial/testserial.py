@@ -9,6 +9,7 @@ z = 'Accelz'
 gyrox = 'Gyrox'
 gyroy = 'Gyroy'
 gyroz = 'Gyroz'
+pow = 'PowerOn'
 # right = '6'
 # left = '7'
 # rise = '8'
@@ -74,7 +75,7 @@ def getcoordinate():
 
 
 try:
-        ser.wrtie(PowerOn)
+        ser.write(pow)
         sleep(10)
         while 1:
           # coor =  getcoordinate()
