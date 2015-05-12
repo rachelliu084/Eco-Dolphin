@@ -75,12 +75,15 @@ try:
            responsey = ser.readline()
            ser.write(z)
            responsez = ser.readline()
-           print float(responsex)
-           print float(responsey)
-           print float(responsez)
+           print responsex
+           print responsey
+           print responsez
            xcoor = float(responsex)
            ycoor = float(responsey)
            zcoor = float(responsez)
+           print xcoor
+           print ycoor
+           print zcoor
            #ser.write(mag)
            #responsemag = ser.readline()
            #if(targetmag < responsemag):
