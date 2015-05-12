@@ -23,6 +23,12 @@ targetmag = 89
 prevx = 0
 prevy = 0
 prevz = 0
+preanglex = 0
+preangley = 0
+preanglez = 0
+prevdeltax = 0
+prevdeltay = 0
+prevdeltaz = 0
 prevtime = time.clock()
 
 ser.open()
@@ -75,6 +81,12 @@ try:
            responsey = ser.readline()
            ser.write(z)
            responsez = ser.readline()
+           ser.write(gyrox)
+           anglex = ser.readline()
+           ser.write(gyroy)
+           angley = ser.readline()
+           ser.write(gyroz)
+           anglez = ser.readline()
            print responsex
            print responsey
            print responsez
@@ -107,17 +119,37 @@ try:
            diffx = xcoor - prevx
            diffy = ycoor - prevy
            diffz = zcoor - prevz
-          # print coor
+           currentx = deltax + prevdeltax
+           currenty = deltay + prevdeltay
+           currentz = deltaz + prevdeltaz
+           diffanglex = anglex - preanglex
+           diffangley = angley - preangley
+           diffanglez = anglez - preanglez
+          
 
-
+#find change in time, angle, acceleration, and distance in x,y,z
            difftime = time.clock() - prevtime
-           distance1 = math.sqrt((math.pow(diffx,2))+(math.pow(diffy,2))+(math.pow(diffz,2)))
-
+           diffaccel = math.sqrt((math.pow(diffx,2))+(math.pow(diffy,2))+(math.pow(diffz,2)))
+           diffangle = math.sqrt((math.pow(diffanglex,2))+(math.pow(diffangley,2))+(math.pow(diffanglez,2)))
+           deltax = 0.5*diffx*math.pow(difftime,2)
+           deltay = 0.5*diffy*math.pow(difftime,2)
+           deltaz = 0.5*diffz*math.pow(difftime,2)
+#reassign the previous to the current
            prevx = xcoor
            prevy = ycoor
            prevz = zcoor
+           prevdeltax = deltax
+           prevdeltay = deltay
+           prevdeltaz = deltaz
+           preanglex = anglex
+           preangley = angley
+           preanglez = anglez
            prevtime = time.clock()
-           print distance1
+           #print output
+           print diffaccel
+           print currentx
+           print currenty
+           print currentz
            print difftime
 
 except KeyboardInterrupt:
