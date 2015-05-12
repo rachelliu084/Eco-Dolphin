@@ -1,6 +1,7 @@
 import serial
 import math
 import time
+
 ser = serial.Serial('/dev/ttyACM0',57600, timeout=1)
 x = 'Accelx'
 y = 'Accely'
@@ -73,6 +74,8 @@ def getcoordinate():
 
 
 try:
+        ser.wrtie(PowerOn)
+        sleep(10)
         while 1:
           # coor =  getcoordinate()
            ser.write(x) 
