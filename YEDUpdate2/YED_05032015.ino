@@ -46,9 +46,9 @@ void loop()
     if(strcmp(Data_Raspberry, "Accelx")==0)  { IMU_Data(Accel, x, y, z); Raspberry_TX(x); }
     else if(strcmp(Data_Raspberry, "Accely")==0) { IMU_Data(Accel, x, y, z); Raspberry_TX(y); }
         else if(strcmp(Data_Raspberry, "Accelz")==0) { IMU_Data(Accel, x, y, z); Raspberry_TX(z); }
-            else if(strcmp(Data_Raspberry, "Gyrox")==0)) { IMU_Data(Gyro, x, y, z); Raspberry_TX(x); }
-                else if(strcmp(Data_Raspberry, "Gyroy")==0)) { IMU_Data(Gyro, x, y, z); Raspberry_TX(y); }
-                    else if(strcmp(Data_Raspberry, "Gyroz")==0)) { IMU_Data(Gyro, x, y, z); Raspberry_TX(x); }            
+            else if(strcmp(Data_Raspberry, "Gyrox")==0) { IMU_Data(Gyro, x, y, z); Raspberry_TX(x); }
+                else if(strcmp(Data_Raspberry, "Gyroy")==0) { IMU_Data(Gyro, x, y, z); Raspberry_TX(y); }
+                    else if(strcmp(Data_Raspberry, "Gyroz")==0) { IMU_Data(Gyro, x, y, z); Raspberry_TX(x); }            
   }
   else if(strcmp(Data_Raspberry,"Motion")==0)
       {
