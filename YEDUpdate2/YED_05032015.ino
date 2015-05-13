@@ -68,8 +68,8 @@ void loop()
         Raspberry_RX(Data_Raspberry);
         if(strcmp(Data_Raspberry,"Turn right")==0) { TH[0] = Thruster1; TH[1] = IDLE; TH[2] = IDLE; TH[3] = IDLE; }
         else if(strcmp(Data_Raspberry, "Turn left")==0) { TH[0] = IDLE; TH[1] = Thruster2; TH[2] = IDLE; TH[3] = IDLE; }
-            else if(strcmp(Data_Raspberry, "Surface")==0) { TH[0] = IDLE; TH[1] = IDLE; TH[2] = Thruster3; TH[3] = IDLE}
-                else if(strcmp(Data_Raspberry, "Descend")==0) { TH[0] = IDLE; TH[1] = IDLE; TH[2] = IDLE; TH[3] = Thurster4 }
+            else if(strcmp(Data_Raspberry, "Surface")==0) { TH[0] = IDLE; TH[1] = IDLE; TH[2] = Thruster3; TH[3] = IDLE;}
+                else if(strcmp(Data_Raspberry, "Descend")==0) { TH[0] = IDLE; TH[1] = IDLE; TH[2] = IDLE; TH[3] = Thruster4; }
                     else if(strcmp(Data_Raspberry, "Go straight")==0) {  TH[0] = Thruster1; TH[1] = Thruster2; TH[2] = IDLE; TH[3] = IDLE; }
                         else if(strcmp(Data_Raspberry, "Go back")==0) { TH[0] = Reverse1; TH[1] = Reverse2; TH[2] = IDLE; TH[3] = IDLE;  }
                           else if(strcmp(Data_Raspberry, "Dead zone")==0) { TH[0] = IDLE; TH[1] = IDLE; TH[2] = IDLE; TH[3] = IDLE; }
@@ -78,7 +78,7 @@ void loop()
         Raspberry_TX(TH); //sending the feedback chosen from the thrusters to the raspberry
 
       }
-      else if(strcmp(Data_Raspberry,"PowerOFF")==0)
+      else if(strcmp(Data_Raspberry,"PowerOFF"))
           {
             Th_PWR = Thruster_PWR(Thruster_OFF);
           }
