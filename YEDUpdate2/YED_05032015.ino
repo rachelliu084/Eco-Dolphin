@@ -12,7 +12,7 @@
 char Data_Raspberry[Raspberry_Data_Width];
 char Data_Sonar[Sonar_Data_Width];
 char x[8], y[8], z[8];
-int TH[5] = {1500, 1500, 1500 ,1500};// Last one TH[4] is time, 0-99s
+int TH[4] = {1500, 1500, 1500 ,1500};// Last one TH[4] is time, 0-99s
 
 /*---------------------Status Word-----------------------*/
 int Th_PWR = 0;
