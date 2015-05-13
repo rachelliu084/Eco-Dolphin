@@ -75,7 +75,12 @@ def getcoordinate():
      coor.append(zcoor)
      return coor
 
-
+def getIMU(command, setting):
+      ser.write(command)
+      responsecmd = ser.readline()
+      ser.write(setting)
+      responsesetting = ser.readline()
+      return  responsesetting
 try:
         ser.write(pwr)
         #sleep(10)
@@ -83,18 +88,19 @@ try:
           # coor =  getcoordinate()
            responsepwr = ser.readline()
            if (responsepwr == 'Ready'):
-             ser.write(x) 
-             responsex = ser.readline()
-             ser.write(y)
-             responsey = ser.readline()
-             ser.write(z)
-             responsez = ser.readline()
-             ser.write(gyrox)
-             anglex = ser.readline()
-             ser.write(gyroy)
-             angley = ser.readline()
-             ser.write(gyroz)
-             anglez = ser.readline()
+             responsex = getIMU(move,x)
+             responsey = getIMU(move,y)
+             responsez = getIMU(move,z)
+             responsegyrox = getIMU(move,gyrox)
+             responsegyroy = getIMU(move,gyroy)
+             responsegyroz = getIMU(move,gyroz)
+             
+
+
+            
+              
+             
+           
              print responsex
              print responsey
              print responsez
