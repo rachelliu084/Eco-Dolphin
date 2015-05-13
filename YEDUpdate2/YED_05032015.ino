@@ -66,17 +66,17 @@ void loop()
      // delay(100);
         Raspberry_TX(Th_Set);
         Raspberry_RX(Data_Raspberry);
-        if(strcmp(Data_Raspberry,"Turn right")==0)  { Thruster_Setting(Data_Raspberry, Thruster1,IDLE,IDLE,IDLE); }
-        else if(strcmp(Data_Raspberry, "Turn left")==0) { Thruster_Setting(Data_Raspberry, IDLE,Thruster2,IDLE,IDLE); }
-            else if(strcmp(Data_Raspberry, "Surface")==0) { Thruster_Setting(Data_Raspberry, IDLE,IDLE,Thruster3,IDLE); }
-                else if(strcmp(Data_Raspberry, "Descend")==0) { Thruster_Setting(Data_Raspberry, IDLE,IDLE,IDLE,Thruster4); }
-                    else if(strcmp(Data_Raspberry, "Go straight")==0) { Thruster_Setting(Data_Raspberry, Thruster1,Thruster2,IDLE,IDLE); }
-                        else if(strcmp(Data_Raspberry, "Go back")==0) { Thruster_Setting(Data_Raspberry, Reverse1,Reverse2,IDLE,IDLE); }
-                          else if(strcmp(Data_Raspberry, "Dead zone")==0) { Thruster_Setting(Data_Raspberry, IDLE,IDLE,IDLE,IDLE); }
+        if(strcmp(Data_Raspberry,"Turn right")==0)  { Thruster_Setting(Data_Raspberry, {Thruster1,IDLE,IDLE,IDLE}); }
+        else if(strcmp(Data_Raspberry, "Turn left")==0) { Thruster_Setting(Data_Raspberry, {IDLE,Thruster2,IDLE,IDLE}); }
+            else if(strcmp(Data_Raspberry, "Surface")==0) { Thruster_Setting(Data_Raspberry, {IDLE,IDLE,Thruster3,IDLE}); }
+                else if(strcmp(Data_Raspberry, "Descend")==0) { Thruster_Setting(Data_Raspberry, {IDLE,IDLE,IDLE,Thruster4}); }
+                    else if(strcmp(Data_Raspberry, "Go straight")==0) { Thruster_Setting(Data_Raspberry, {Thruster1,Thruster2,IDLE,IDLE}); }
+                        else if(strcmp(Data_Raspberry, "Go back")==0) { Thruster_Setting(Data_Raspberry, {Reverse1,Reverse2,IDLE,IDLE}); }
+                          else if(strcmp(Data_Raspberry, "Dead zone")==0) { Thruster_Setting(Data_Raspberry, {IDLE,IDLE,IDLE,IDLE}); }
         Thruster_Setting(Data_Raspberry, TH);
         Thruster_Speed(TH);
         Raspberry_TX(TH); //sending the feedback chosen from the thrusters to the raspberry
-        
+
       }
       else if(strcmp(Data_Raspberry,"PowerOFF")==0)
           {
