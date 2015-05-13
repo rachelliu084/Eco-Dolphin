@@ -9,7 +9,11 @@
 #define MOTOR3_PIN 8
 #define MOTOR4_PIN 10
 
-#define MID_SIGNAL 1500
+#define IDLE 1500
+#define Thruster1  1550
+#define Thruster2  1610
+#define Thruster3  1600
+#define Thruster4  1390
 
 void Thruster_Speed(int *TH);
 
