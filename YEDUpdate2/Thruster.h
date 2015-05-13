@@ -14,6 +14,8 @@
 #define Thruster2  1610
 #define Thruster3  1600
 #define Thruster4  1390
+#define Reverse1 1390
+#define Reverse2 1390
 
 void Thruster_Speed(int *TH);
 
