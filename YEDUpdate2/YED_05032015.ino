@@ -32,12 +32,12 @@ void setup()
 //  Thruster_Init();
 }
 
-void loop()
-{
+void loop() {
   strcpy(Data_Raspberry, "");// clear command
-  Raspberry_RX(Data_Raspberry);// wait until get the next command
-  if(strcmp(Data_Raspberry, "PowerOn")==0)
-  {
+  Raspberry_RX(Data_Raspberry);
+  while(Data_Raspberry != 'IMUSet') {
+    
+  if(strcmp(Data_Raspberry, "PowerOn")==0) {
     strcpy(Data_Raspberry, "");
     if(Th_PWR == 0) { Th_PWR = Thruster_PWR(Thruster_ON); Thruster_Init(); Buzzer_3x500ms(); }
     Thruster_Stop();
@@ -63,6 +63,10 @@ void loop()
                 else if(strcmp(Data_Raspberry, "Gyrox")==0) { IMU_Data(Gyro, x, y, z); Raspberry_TX(x); }
                     else if(strcmp(Data_Raspberry, "Gyroy")==0) { IMU_Data(Gyro, x, y, z); Raspberry_TX(y); }
                         else if(strcmp(Data_Raspberry, "Gyroz")==0) { IMU_Data(Gyro, x, y, z); Raspberry_TX(x); }
+
+           }
+            Raspberry_RX(Data_Raspberry);// wait until get the next command              
+        }                  
      // delay(100);
         Raspberry_TX(Th_Set);
         Raspberry_RX(Data_Raspberry);
@@ -74,10 +78,13 @@ void loop()
                         else if(strcmp(Data_Raspberry, "Go back")==0) { TH = {Reverse1,Reverse2,IDLE,IDLE}; }
                           else if(strcmp(Data_Raspberry, "Dead zone")==0) { TH = {IDLE,IDLE,IDLE,IDLE}; }
         // Thruster_Setting(Data_Raspberry, TH);
+
+
         Thruster_Speed(TH);
+
         Raspberry_TX(TH); //sending the feedback chosen from the thrusters to the raspberry
 
-      }
+      
       else if(strcmp(Data_Raspberry,"PowerOFF")==0)
           {
             Th_PWR = Thruster_PWR(Thruster_OFF);
