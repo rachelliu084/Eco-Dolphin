@@ -48,7 +48,8 @@ void loop()
         else if(strcmp(Data_Raspberry, "Accelz")==0) { IMU_Data(Accel, x, y, z); Raspberry_TX(z); }
             else if(strcmp(Data_Raspberry, "Gyrox")==0) { IMU_Data(Gyro, x, y, z); Raspberry_TX(x); }
                 else if(strcmp(Data_Raspberry, "Gyroy")==0) { IMU_Data(Gyro, x, y, z); Raspberry_TX(y); }
-                    else if(strcmp(Data_Raspberry, "Gyroz")==0) { IMU_Data(Gyro, x, y, z); Raspberry_TX(x); }            
+                    else if(strcmp(Data_Raspberry, "Gyroz")==0) { IMU_Data(Gyro, x, y, z); Raspberry_TX(x); }  
+    
   }
   else if(strcmp(Data_Raspberry,"Motion")==0)
       {
@@ -65,6 +66,13 @@ void loop()
      // delay(100);
         Raspberry_TX(Th_Set);
         Raspberry_RX(Data_Raspberry);
+        if(strcmp(Data_Raspberry,"turn right")==0)  { Thruster_Setting(Data_Raspberry, 1550,1500,1500,1500); }
+        else if(strcmp(Data_Raspberry, "turn left")==0) { Thruster_Setting(Data_Raspberry, 1500,1610,1500,1500); }
+            else if(strcmp(Data_Raspberry, "rise")==0) { Thruster_Setting(Data_Raspberry, 1500,1500,1500,1500); }
+                else if(strcmp(Data_Raspberry, "dive")==0) { Thruster_Setting(Data_Raspberry, 1500,1500,1500,1500); }
+                    else if(strcmp(Data_Raspberry, "forward")==0) { Thruster_Setting(Data_Raspberry, 1550,1610,1500,1500); }
+                        else if(strcmp(Data_Raspberry, "backward")==0) { Thruster_Setting(Data_Raspberry, 1610,1550,1500,1500); }
+                          else if(strcmp(Data_Raspberry, "idle")==0) { Thruster_Setting(Data_Raspberry, 1500,1500,1500,1500); }
         Thruster_Setting(Data_Raspberry, TH);
         Thruster_Speed(TH);
       }
