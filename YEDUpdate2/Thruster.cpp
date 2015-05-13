@@ -6,19 +6,21 @@ Servo motor2;
 Servo motor3;
 Servo motor4;
 
+
+
 int Thruster_Init()
 {
-  Serial.println("Initialize Thrusters ...");
+  //Serial.println("Initialize Thrusters ...");
   motor1.attach(MOTOR1_PIN);
   motor2.attach(MOTOR2_PIN);
   motor3.attach(MOTOR3_PIN);
   motor4.attach(MOTOR4_PIN);
   
-  motor1.writeMicroseconds(MID_SIGNAL);
-  motor2.writeMicroseconds(MID_SIGNAL);
-  motor3.writeMicroseconds(MID_SIGNAL);
-  motor4.writeMicroseconds(MID_SIGNAL);
-  delay(10000);
+  motor1.writeMicroseconds(IDLE);
+  motor2.writeMicroseconds(IDLE);
+  motor3.writeMicroseconds(IDLE);
+  motor4.writeMicroseconds(IDLE);
+  //delay(10000);
   return 1;
 }
 
@@ -32,15 +34,15 @@ void Thruster_Speed(int *TH)
 //  Serial.println("3");
   motor4.writeMicroseconds(TH[3]);
 //  Serial.println("4");
-  delay(TH[4]*1000);
+  //delay(TH[4]*1000);
   
 }
 
 void Thruster_Stop()
 {
-  motor1.writeMicroseconds(MID_SIGNAL);
-  motor2.writeMicroseconds(MID_SIGNAL);
-  motor3.writeMicroseconds(MID_SIGNAL);
-  motor4.writeMicroseconds(MID_SIGNAL);   
+  motor1.writeMicroseconds(IDLE);
+  motor2.writeMicroseconds(IDLE);
+  motor3.writeMicroseconds(IDLE);
+  motor4.writeMicroseconds(IDLE);   
 
 }
