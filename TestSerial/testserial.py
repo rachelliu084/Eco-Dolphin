@@ -82,7 +82,7 @@ try:
         while 1:
           # coor =  getcoordinate()
            responsepwr = ser.readline()
-           if (responsepwr == 'Ready'
+           if (responsepwr == 'Ready'):
              ser.write(x) 
              responsex = ser.readline()
              ser.write(y)
@@ -158,6 +158,5 @@ try:
              print currenty
              print currentz
              print difftime
-
 except KeyboardInterrupt:
         ser.close()
