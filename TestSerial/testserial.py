@@ -38,7 +38,7 @@ prevtime = time.clock()
 ser.open()
 
 def hover(diffx, diffy, diffz):
-    targettime = time.time.clock()
+    targettime = time.clock()+10
     while(time.clock() < targettime):
          if(diffy < 0):
             ser.write(forward)
@@ -81,26 +81,23 @@ def getIMU(command, setting):
       ser.write(setting)
       responsesetting = ser.readline()
       return  responsesetting
+
 try:
         ser.write(pwr)
         #sleep(10)
         while 1:
           # coor =  getcoordinate()
            responsepwr = ser.readline()
+           print responsepwr
            if (responsepwr == 'Ready'):
+
              responsex = getIMU(move,x)
              responsey = getIMU(move,y)
              responsez = getIMU(move,z)
              responsegyrox = getIMU(move,gyrox)
              responsegyroy = getIMU(move,gyroy)
              responsegyroz = getIMU(move,gyroz)
-             
-
-
             
-              
-             
-           
              print responsex
              print responsey
              print responsez
