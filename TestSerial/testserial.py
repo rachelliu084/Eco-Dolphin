@@ -2,7 +2,7 @@ import serial
 import math
 import time
 
-ser = serial.Serial('/dev/ttyACM0',57600, timeout=1)
+ser = serial.Serial('/dev/ttyACM2',57600, timeout=1)
 x = 'Accelx'
 y = 'Accely'
 z = 'Accelz'
@@ -20,7 +20,8 @@ idle = 'Dead zone'
 sonarpos = 'Position'
 forward = 'Go straight'
 backward = 'Go back'
-
+set = 'IMUSet'
+ready = 'Ready'
 targetmag = 89
 
 
@@ -75,29 +76,33 @@ def getcoordinate():
      coor.append(zcoor)
      return coor
 
-def getIMU(command, setting):
+def getIMU(command,setting):
       ser.write(command)
       responsecmd = ser.readline()
-      ser.write(setting)
-      responsesetting = ser.readline()
-      return  responsesetting
 
+      ser.write(setting)
+      responseready = ser.readline()
+
+      return  responsecmd
 try:
         ser.write(pwr)
+        #print pwr
         #sleep(10)
+        print 'testing1'
         while 1:
           # coor =  getcoordinate()
+           print 'testing2'
+
            responsepwr = ser.readline()
            print responsepwr
+           print 'testing3'
            if (responsepwr == 'Ready'):
-
-             responsex = getIMU(move,x)
-             responsey = getIMU(move,y)
-             responsez = getIMU(move,z)
-             responsegyrox = getIMU(move,gyrox)
-             responsegyroy = getIMU(move,gyroy)
-             responsegyroz = getIMU(move,gyroz)
-            
+             responsex = getIMU(x,move)
+             responsey = getIMU(y,move)
+             responsez = getIMU(z,move)
+             responsegyrox = getIMU(gyrox,move)
+             responsegyroy = getIMU(gyroy,move)
+             responsegyroz = getIMU(gyroz,move)
              print responsex
              print responsey
              print responsez
@@ -107,6 +112,9 @@ try:
              print xcoor
              print ycoor
              print zcoor
+             anglex = float(responsegyrox)
+             angley = float(responsegyroy)
+             anglez = float(responsegyroz)
              #ser.write(mag)
              #responsemag = ser.readline()
              #if(targetmag < responsemag):
@@ -130,6 +138,10 @@ try:
              diffx = xcoor - prevx
              diffy = ycoor - prevy
              diffz = zcoor - prevz
+             difftime = time.clock() - prevtime
+             deltax = 0.5*diffx*math.pow(difftime,2)
+             deltay = 0.5*diffy*math.pow(difftime,2)
+             deltaz = 0.5*diffz*math.pow(difftime,2)
              currentx = deltax + prevdeltax
              currenty = deltay + prevdeltay
              currentz = deltaz + prevdeltaz
@@ -138,12 +150,12 @@ try:
              diffanglez = anglez - preanglez
 
 #find change in time, angle, acceleration, and distance in x,y,z
-             difftime = time.clock() - prevtime
+            # difftime = time.clock() - prevtime
              diffaccel = math.sqrt((math.pow(diffx,2))+(math.pow(diffy,2))+(math.pow(diffz,2)))
              diffangle = math.sqrt((math.pow(diffanglex,2))+(math.pow(diffangley,2))+(math.pow(diffanglez,2)))
-             deltax = 0.5*diffx*math.pow(difftime,2)
-             deltay = 0.5*diffy*math.pow(difftime,2)
-             deltaz = 0.5*diffz*math.pow(difftime,2)
+             #deltax = 0.5*diffx*math.pow(difftime,2)
+             #deltay = 0.5*diffy*math.pow(difftime,2)
+            # deltaz = 0.5*diffz*math.pow(difftime,2)
 #reassign the previous to the current
              prevx = xcoor
              prevy = ycoor
@@ -161,5 +173,8 @@ try:
              print currenty
              print currentz
              print difftime
+             print 'code sucess'
+             ser.write(set)
+            # ser.write(move)
 except KeyboardInterrupt:
         ser.close()
