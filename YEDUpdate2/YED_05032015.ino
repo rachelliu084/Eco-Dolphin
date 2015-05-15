@@ -28,14 +28,14 @@ void setup()
   Buzzer_Init();
   Power_Init();
   SparkFun_IMU_Init();
-  Sonar_Init();
-//  Thruster_Init();
+  //Sonar_Init();
+  Thruster_Init();
 }
 
 void loop() {
   strcpy(Data_Raspberry, "");// clear string
   Raspberry_RX(Data_Raspberry);
-  while(!(strcmp(Data_Raspberry, "IMUSet"))) { //beginning of while loop
+  while((strcmp(Data_Raspberry, "IMUSet") !=0)) { //beginning of while loop
     
   if(strcmp(Data_Raspberry, "PowerOn")==0) {
     strcpy(Data_Raspberry, "");
