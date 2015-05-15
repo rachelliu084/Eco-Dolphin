@@ -152,7 +152,7 @@ try:
              prevtime = time.clock()
 # figure out the next manuever and send thruster command
              responsethr = ser.readline()
-             if (responsethr == 'Th_set'):
+             if (responsethr == 'Th_Set'):
 		currentangle = math.cos(anglex/angley)
 		if(targetmag < currentangle):
              	   ser.write(left)
