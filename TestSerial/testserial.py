@@ -2,7 +2,7 @@ import serial
 import math
 import time
 
-ser = serial.Serial('/dev/ttyACM0',57600, timeout=1)
+ser = serial.Serial('/dev/ttyACM1',57600, timeout=1)
 x = 'Accelx'
 y = 'Accely'
 z = 'Accelz'
@@ -25,7 +25,7 @@ ready = 'Ready'
 targetmag = 89
 coor = []
 
-
+i = 0
 prevx = 0
 prevy = 0
 prevz = 0
@@ -68,39 +68,42 @@ def hover(diffx, diffy, diffz):
 
 
 
-def getcoordinate():
-     coor = []
 
-
-     coor.append(xcoor)
-     coor.append(ycoor)
-     coor.append(zcoor)
-     return coor
 
 def getIMU(command,setting):
       ser.write(command)
-      responsecmd = ser.readline()	 
-      
+      responsecmd = ser.readline()
+
       ser.write(setting)
-      responseready = ser.readline()	
-      
+      responseready = ser.readline()
+
       return  responsecmd
 
 def getcoordinate():
+     global prevx
+     global prevy
+     global prevz
+     global prevdeltax
+     global prevdeltay
+     global prevdeltaz
+     global preanglex
+     global preangley
+     global preanglez
+     global prevtime
      try:
-        ser.write(pwr)
-	#print pwr
+
+        #print pwr
         #sleep(10)
-        
-	print 'testing1'
+
+        print 'testing1'
           # coor =  getcoordinate()
-	   print 'testing2'
+        print 'testing2'
 
-           responsepwr = ser.readline()
+        responsepwr = ser.readline()
 
-	   print responsepwr
-	   print 'testing3'
-           if (responsepwr == 'Ready'):
+        print responsepwr
+        print 'testing3'
+        if (responsepwr == 'Ready'):
              responsex = getIMU(x,move)
              responsey = getIMU(y,move)
              responsez = getIMU(z,move)
@@ -119,18 +122,18 @@ def getcoordinate():
              else:
                print 'testing5'
                print responsethr
-	     print responsex
-	     print responsey
-	     print responsez
-             xcoor = float(responsex)
-             ycoor = float(responsey)
-             zcoor = float(responsez)
-             print ('accel x= ', xcoor)
-             print ('accel y= ', ycoor)
-             print ('accel z= ', zcoor)
-	     anglex = float(responsegyrox)
-	     angley = float(responsegyroy)
-	     anglez = float(responsegyroz)
+             print responsex
+             print responsey
+             print responsez
+             xaccel = float(responsex)
+             yaccel = float(responsey)
+             zaccel = float(responsez)
+             print ('accel x= ', xaccel)
+             print ('accel y= ', yaccel)
+             print ('accel z= ', zaccel)
+             anglex = float(responsegyrox)
+             angley = float(responsegyroy)
+             anglez = float(responsegyroz)
              #ser.write(mag)
              #responsemag = ser.readline()
              #if(targetmag < responsemag):
@@ -151,10 +154,10 @@ def getcoordinate():
 
 
 
-             diffx = xcoor - prevx
-             diffy = ycoor - prevy
-             diffz = zcoor - prevz
-	     difftime = time.clock() - prevtime
+             diffx = xaccel - prevx
+             diffy = yaccel - prevy
+             diffz = zaccel - prevz
+             difftime = time.clock() - prevtime
              deltax = 0.5*diffx*math.pow(difftime,2)
              deltay = 0.5*diffy*math.pow(difftime,2)
              deltaz = 0.5*diffz*math.pow(difftime,2)
@@ -173,9 +176,9 @@ def getcoordinate():
              #deltay = 0.5*diffy*math.pow(difftime,2)
             # deltaz = 0.5*diffz*math.pow(difftime,2)
 #reassign the previous to the current
-             prevx = xcoor
-             prevy = ycoor
-             prevz = zcoor
+             prevx = xaccel
+             prevy = yaccel
+             prevz = zaccel
              prevdeltax = deltax
              prevdeltay = deltay
              prevdeltaz = deltaz
@@ -189,24 +192,28 @@ def getcoordinate():
              print currenty
              print currentz
              print difftime
-	     print 'code sucess'
-	     coor.append(currentx)
-             coor.append(currenty)
-             coor.append(currentz)
-             return coor
-             
-	    # ser.write(move)
+             print 'code sucess'
+            # coor[0] = currentx
+             #coor[1] = currenty
+             #coor[2] = currentz
+
+             return 0
+
+            # ser.write(move)
      except KeyboardInterrupt:
         ser.close()
-        
+
+
         #main code
-while 1:
+ser.write(pwr)
+while i<10:
+
    coor = getcoordinate()
-   
+   i+=1
    # check position against target position (within tolerance)
-             if(((xaccel > targetx + tol)or(xaccel < targetx - tol))and 
-		((yaccel > targety + tol)or(yaccel < targety - tol))and 
-		((zaccel > targetz + tol)or(zaccel < targetz - tol))):
-               continue
-             else:
-                hover(xaccel, yaccel, zaccel)
+  # if(((coor[0] > targetx + tol)or(coor[0] < targetx - tol))and
+        #       ((coor[1] > targety + tol)or(coor[1] < targety - tol))and
+        #       ((coor[2] > targetz + tol)or(coor[2] < targetz - tol))):
+        #          continue
+  # else:
+         #         hover(coor[0], coor[1], coor[2])
