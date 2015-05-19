@@ -200,4 +200,5 @@ def getcoordinate():
         ser.close()
         
         #main code
-coor = getcoordinate()
+while 1:
+   coor = getcoordinate()
