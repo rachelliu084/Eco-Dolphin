@@ -93,7 +93,6 @@ def getcoordinate():
         #sleep(10)
         
 	print 'testing1'
-        while 1:
           # coor =  getcoordinate()
 	   print 'testing2'
 
