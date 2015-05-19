@@ -68,7 +68,14 @@ def hover(x, y, z):
            ser.write(dive)
          else:
            ser.write(idle)
+         
+def resurface (z)
 
+        while z>tol
+        
+           serial.write(rise)
+           #get z to see if at surface yet
+           
 def getcoordinate():
      coor = []
      coor.append(xaccel)
