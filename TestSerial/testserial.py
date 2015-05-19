@@ -71,9 +71,9 @@ def hover(x, y, z):
 
 def getcoordinate():
      coor = []
-     coor.append(xcoor)
-     coor.append(ycoor)
-     coor.append(zcoor)
+     coor.append(xaccel)
+     coor.append(yaccel)
+     coor.append(zaccel)
      return coor
 
 def getIMU(command,setting):
@@ -105,23 +105,23 @@ try:
              responsegyroz = getIMU(gyroz,set)
 
 # Convert the string input to floating point decimal and print
-             xcoor = float(responsex)
-             ycoor = float(responsey)
-             zcoor = float(responsez)
-             print ('Accel x: ', xcoor)
-             print ('Accel y: ', ycoor)
-             print ('Accel z: ', zcoor)
+             xaccel = float(responsex)
+             yaccel = float(responsey)
+             zaccel = float(responsez)
+             print 'Accel x: ', xaccel
+             print 'Accel y: ', yaccel
+             print 'Accel z: ', zaccel
              anglex = float(responsegyrox)
              angley = float(responsegyroy)
              anglez = float(responsegyroz)
-             print ('Angle x: ', anglex)
-             print ('Angle y: ', angley)
-	     print ('Angle z: ', anglez)
+             print 'Angle x: ', anglex
+             print 'Angle y: ', angley
+	     print 'Angle z: ', anglez
 
 # Find the difference in the coordinates against the previous values
-             diffx = xcoor - prevx
-             diffy = ycoor - prevy
-             diffz = zcoor - prevz
+             diffx = xaccel - prevx
+             diffy = yaccel - prevy
+             diffz = zaccel - prevz
              difftime = time.clock() - prevtime
              deltax = 0.5*diffx*math.pow(difftime,2)
              deltay = 0.5*diffy*math.pow(difftime,2)
@@ -140,9 +140,9 @@ try:
              diffangle = math.sqrt((math.pow(diffanglex,2))+(math.pow(diffangley,2))+(math.pow(diffanglez,2)))
 
 # reassign the previous to the current
-             prevx = xcoor
-             prevy = ycoor
-             prevz = zcoor
+             prevx = xaccel
+             prevy = yaccel
+             prevz = zaccel
              prevdeltax = deltax
              prevdeltay = deltay
              prevdeltaz = deltaz
@@ -161,19 +161,19 @@ try:
 		else:
             	   ser.write(idle)
 # check position against target position (within tolerance)
-             if(((xcoor > targetx + tol)or(xcoor < targetx - tol))and 
-		((ycoor > targety + tol)or(ycoor < targety - tol))and 
-		((zcoor > targetz + tol)or(zcoor < targetz - tol))):
+             if(((xaccel > targetx + tol)or(xaccel < targetx - tol))and 
+		((yaccel > targety + tol)or(yaccel < targety - tol))and 
+		((zaccel > targetz + tol)or(zaccel < targetz - tol))):
                continue
              else:
-                hover(xcoor, ycoor, zcoor)
+                hover(xaccel, yaccel, zaccel)
 
 # print output
-             print ('Change in acceleration: ', diffaccel)
-             print ('x = ', currentx)
-             print ('y = ', currenty)
-             print ('z = ', currentz)
-             print ('time elapsed: ', difftime)
+             print 'Change in acceleration: ', diffaccel
+             print 'x = ', currentx
+             print 'y = ', currenty
+             print 'z = ', currentz
+             print 'time elapsed: ', difftime
              print 'code success'
           
 except KeyboardInterrupt:
