@@ -202,3 +202,11 @@ def getcoordinate():
         #main code
 while 1:
    coor = getcoordinate()
+   
+   # check position against target position (within tolerance)
+             if(((xaccel > targetx + tol)or(xaccel < targetx - tol))and 
+		((yaccel > targety + tol)or(yaccel < targety - tol))and 
+		((zaccel > targetz + tol)or(zaccel < targetz - tol))):
+               continue
+             else:
+                hover(xaccel, yaccel, zaccel)
