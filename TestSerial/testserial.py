@@ -103,7 +103,21 @@ try:
              responsegyrox = getIMU(gyrox,move)
              responsegyroy = getIMU(gyroy,move)
              responsegyroz = getIMU(gyroz,set)
-
+	     responsethr = ser.readline()
+             print responsethr
+             if (responsethr == ''):
+               print 'testing4'
+               ser.write(right)
+               responsethr = ser.readline()
+               print responsethr
+               ser.write(pwr)
+               #responsepwr = ser.readline()
+             else:
+               print 'testing5'
+               print responsethr
+       print responsex
+       print responsey
+       print responsez
 # Convert the string input to floating point decimal and print
              xaccel = float(responsex)
              yaccel = float(responsey)
