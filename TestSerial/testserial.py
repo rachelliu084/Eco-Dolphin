@@ -23,6 +23,7 @@ backward = 'Go back'
 sett = 'IMUSet'
 ready = 'Ready'
 targetmag = 89
+coor = []
 
 
 prevx = 0
@@ -85,7 +86,8 @@ def getIMU(command,setting):
       
       return  responsecmd
 
-try:
+def getcoordinate():
+     try:
         ser.write(pwr)
 	#print pwr
         #sleep(10)
@@ -189,7 +191,11 @@ try:
              print currentz
              print difftime
 	     print 'code sucess'
+	     coor.append(currentx)
+             coor.append(currenty)
+             coor.append(currentz)
+             return coor
              
 	    # ser.write(move)
-except KeyboardInterrupt:
+     except KeyboardInterrupt:
         ser.close()
