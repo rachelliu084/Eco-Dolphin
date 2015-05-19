@@ -80,6 +80,7 @@ void loop() {
   //Set the thrusters according to RPI specifications
   Raspberry_TX(Th_Set);
   Raspberry_RX(Data_Raspberry);
+        Serial.print(Data_Raspberry);
         if(strcmp(Data_Raspberry,"Turn right")==0) { TH[0] = Thruster1; TH[1] = IDLE; TH[2] = IDLE; TH[3] = IDLE; }
         else if(strcmp(Data_Raspberry, "Turn left")==0) { TH[0] = IDLE; TH[1] = Thruster2; TH[2] = IDLE; TH[3] = IDLE; }
             else if(strcmp(Data_Raspberry, "Surface")==0) { TH[0] = IDLE; TH[1] = IDLE; TH[2] = Thruster3; TH[3] = IDLE;}
@@ -91,4 +92,3 @@ void loop() {
    Thruster_Speed(TH);
   
 }
-
