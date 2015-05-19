@@ -199,3 +199,6 @@ def getcoordinate():
 	    # ser.write(move)
      except KeyboardInterrupt:
         ser.close()
+        
+        #main code
+coor = getcoordinate()
