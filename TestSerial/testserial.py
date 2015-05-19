@@ -79,7 +79,8 @@ def resurface (z)
 def getcoordinate():
      coor = []
      coor.append(xaccel)
-     coor.append(yaccel)ser.write(pwr)
+     coor.append(yaccel)
+     ser.write(pwr)
         print 'testing1'
         while 1:
            print 'testing2'
