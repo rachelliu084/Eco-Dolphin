@@ -25,7 +25,7 @@ backward = 'Go back'
 sett = 'IMUSet'
 ready = 'Ready'
 targetmag = 89
-coor = []
+coor = [0,0,0]
 i = 0
 prevx = 0
 prevy = 0
@@ -90,6 +90,8 @@ def getcoordinate():
      global preangley
      global preanglez
      global prevtime
+     global coor
+     
      try:
         print 'testing1'
         responsepwr = ser.readline()
@@ -177,17 +179,17 @@ def getcoordinate():
              preanglez = anglez
              prevtime = time.clock()
              #print output
-             print diffaccel
-             print currentx
-             print currenty
-             print currentz
-             print difftime
-             print 'code sucess'
-             #coor[0] = currentx
-             #coor[1] = currenty
-             #coor[2] = currentz
+             print 'Change in Accel: ',diffaccel
+             print 'Current x: ', currentx
+             print 'Current y: ', currenty
+             print 'Current z: ', currentz
+             print 'Elapsed time: ' difftime
+             print 'IMU Settings received: code success'
+             coor[0] = currentx
+             coor[1] = currenty
+             coor[2] = currentz
 
-             return 0
+             return coor
 
      # ser.write(move)
      except KeyboardInterrupt:
@@ -200,9 +202,9 @@ while i<10:
    coor = getcoordinate()
    i+=1
 # check position against target position (within tolerance)
-  # if(((coor[0] > targetx + tol)or(coor[0] < targetx - tol))and
-        #       ((coor[1] > targety + tol)or(coor[1] < targety - tol))and
-        #       ((coor[2] > targetz + tol)or(coor[2] < targetz - tol))):
-        #          continue
-  # else:
-        #         hover(coor[0], coor[1], coor[2])
+  if(((coor[0] > targetx + tol)or(coor[0] < targetx - tol))and
+               ((coor[1] > targety + tol)or(coor[1] < targety - tol))and
+               ((coor[2] > targetz + tol)or(coor[2] < targetz - tol))):
+                  continue
+  else:
+                 hover(coor[0], coor[1], coor[2])
