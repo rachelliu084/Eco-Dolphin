@@ -91,18 +91,9 @@ def getcoordinate():
      global preanglez
      global prevtime
      try:
-
-        #print pwr
-        #sleep(10)
-
         print 'testing1'
-          # coor =  getcoordinate()
-        print 'testing2'
-
         responsepwr = ser.readline()
-
-        print responsepwr
-        print 'testing3'
+        print 'Agent: ', responsepwr
         if (responsepwr == 'Ready'):
              responsex = getIMU(x,move)
              responsey = getIMU(y,move)
@@ -116,24 +107,25 @@ def getcoordinate():
                print 'testing4'
                ser.write(right)
                responsethr = ser.readline()
-               print responsethr
+               print 'Agent message: ', responsethr
                ser.write(pwr)
                #responsepwr = ser.readline()
              else:
                print 'testing5'
                print responsethr
-             print responsex
-             print responsey
-             print responsez
+             #convert the string response to float
              xaccel = float(responsex)
              yaccel = float(responsey)
              zaccel = float(responsez)
-             print ('accel x= ', xaccel)
-             print ('accel y= ', yaccel)
-             print ('accel z= ', zaccel)
+             print 'Accel x= ', xaccel
+             print 'Accel y= ', yaccel
+             print 'Accel z= ', zaccel
              anglex = float(responsegyrox)
              angley = float(responsegyroy)
              anglez = float(responsegyroz)
+             print 'Gyro x= ', anglex
+             print 'Gyro y= ', angley
+             print 'Gyro z= ', anglez
              #ser.write(mag)
              #responsemag = ser.readline()
              #if(targetmag < responsemag):
@@ -167,12 +159,12 @@ def getcoordinate():
              diffanglez = anglez - preanglez
 
 #find change in time, angle, acceleration, and distance in x,y,z
-            # difftime = time.clock() - prevtime
+             # difftime = time.clock() - prevtime
              diffaccel = math.sqrt((math.pow(diffx,2))+(math.pow(diffy,2))+(math.pow(diffz,2)))
              diffangle = math.sqrt((math.pow(diffanglex,2))+(math.pow(diffangley,2))+(math.pow(diffanglez,2)))
              #deltax = 0.5*diffx*math.pow(difftime,2)
              #deltay = 0.5*diffy*math.pow(difftime,2)
-            # deltaz = 0.5*diffz*math.pow(difftime,2)
+             # deltaz = 0.5*diffz*math.pow(difftime,2)
 #reassign the previous to the current
              prevx = xaccel
              prevy = yaccel
@@ -191,7 +183,7 @@ def getcoordinate():
              print currentz
              print difftime
              print 'code sucess'
-            # coor[0] = currentx
+             #coor[0] = currentx
              #coor[1] = currenty
              #coor[2] = currentz
 
