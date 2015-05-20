@@ -42,7 +42,7 @@ prevtime = time.clock()
 ser = serial.Serial(port, baud, timeout=1)
 ser.open()
 
-#function definitions - hover, getIMU, 
+#function definitions - hover, getIMU, getcoordinate, resurface
 def hover(diffx, diffy, diffz):
     targettime = time.clock()+10
     while(time.clock() < targettime):
