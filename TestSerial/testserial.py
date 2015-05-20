@@ -2,7 +2,9 @@ import serial
 import math
 import time
 
-ser = serial.Serial('/dev/ttyACM1',57600, timeout=1)
+# Global variables defined as follows
+port = '/dev/ttyACM1'
+baud = 57600
 x = 'Accelx'
 y = 'Accely'
 z = 'Accelz'
@@ -24,7 +26,6 @@ sett = 'IMUSet'
 ready = 'Ready'
 targetmag = 89
 coor = []
-
 i = 0
 prevx = 0
 prevy = 0
@@ -37,8 +38,11 @@ prevdeltay = 0
 prevdeltaz = 0
 prevtime = time.clock()
 
+#Serial communication definition and initialization
+ser = serial.Serial(port, baud, timeout=1)
 ser.open()
 
+#function definitions - hover, getIMU, 
 def hover(diffx, diffy, diffz):
     targettime = time.clock()+10
     while(time.clock() < targettime):
@@ -65,10 +69,6 @@ def hover(diffx, diffy, diffz):
            ser.write(dive)
          else:
            ser.write(idle)
-
-
-
-
 
 def getIMU(command,setting):
       ser.write(command)
@@ -150,9 +150,7 @@ def getcoordinate():
              # if(!waypoint):
              # continue
              # else:
-                #hover(targetheading)
-
-
+             #hover(targetheading)
 
              diffx = xaccel - prevx
              diffy = yaccel - prevy
@@ -199,21 +197,20 @@ def getcoordinate():
 
              return 0
 
-            # ser.write(move)
+     # ser.write(move)
      except KeyboardInterrupt:
         ser.close()
 
-
-        #main code
+#main code begins here
 ser.write(pwr)
 while i<10:
 
    coor = getcoordinate()
    i+=1
-   # check position against target position (within tolerance)
+# check position against target position (within tolerance)
   # if(((coor[0] > targetx + tol)or(coor[0] < targetx - tol))and
         #       ((coor[1] > targety + tol)or(coor[1] < targety - tol))and
         #       ((coor[2] > targetz + tol)or(coor[2] < targetz - tol))):
         #          continue
   # else:
-         #         hover(coor[0], coor[1], coor[2])
+        #         hover(coor[0], coor[1], coor[2])
