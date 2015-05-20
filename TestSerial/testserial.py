@@ -78,6 +78,7 @@ def getIMU(command,setting):
       responseready = ser.readline()
 
       return  responsecmd
+      
 
 def getcoordinate():
      global prevx
@@ -195,6 +196,12 @@ def getcoordinate():
      except KeyboardInterrupt:
         ser.close()
 
+def resurface
+   
+   while z<tol
+      getcoordinate()
+      ser.write(rise)
+      
 #main code begins here
 ser.write(pwr)
 while i<10:
