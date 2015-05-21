@@ -25,7 +25,7 @@ backward = 'Go back'
 sett = 'IMUSet'
 ready = 'Ready'
 targetmag = 89
-coor = [0,0,0]
+coor = [0.0,0.0,0.0]
 i = 0
 prevx = 0
 prevy = 0
@@ -69,7 +69,12 @@ def hover(diffx, diffy, diffz):
            ser.write(dive)
          else:
            ser.write(idle)
-def Boundary(xcoor,ycoor,zcoor):
+def setBoundary(xcoor,ycoor,zcoor):
+    global coor
+    
+    coor[0] = xcoor
+    coor[1] = ycoor
+    coor[2] = zcoor
     tolx = 100#Since we don't know the exact coordinates for the robot to stop, I set them up as 100 for both x,y,z coordinates
 #for the purpose of the testing. 
     toly = 100
@@ -243,16 +248,19 @@ def resurface
       ser.write(rise)
       
 #main code begins here
+
+setBoundary(20.0,20.0,10.0)
+print coor 
 ser.write(pwr)
 while i<10:
 
    coor = getcoordinate()
    i+=1
   #getting the coordinates from the getcoordinate function
-   xcoor = coor[0]
-   ycoor = coor[1]
-   zcoor = coor[2]
-   Boundary(xcoor,ycoor,zcoor)
+   # xcoor = coor[0]
+   # ycoor = coor[1]
+   # zcoor = coor[2]
+
 # check position against target position (within tolerance)
  # if(((coor[0] > targetx + tol)or(coor[0] < targetx - tol))and
               # ((coor[1] > targety + tol)or(coor[1] < targety - tol))and
