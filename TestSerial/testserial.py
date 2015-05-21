@@ -26,6 +26,7 @@ sett = 'IMUSet'
 ready = 'Ready'
 targetmag = 89
 coor = [0.0,0.0,0.0]
+maxcoor = [0.0,0.0,0.0]
 i = 0
 prevx = 0
 prevy = 0
@@ -71,50 +72,50 @@ def hover(diffx, diffy, diffz):
            ser.write(idle)
 def setBoundary(xcoor,ycoor,zcoor):
     global coor
+    global maxcoor
+    maxcoor[0] = xcoor
+    maxcoor[1] = ycoor
+    maxcoor[2] = zcoor
     
-    coor[0] = xcoor
-    coor[1] = ycoor
-    coor[2] = zcoor
-    coor[0] = 100#Since we don't know the exact coordinates for the robot to stop, I set them up as 100 for both x,y,z coordinates
-#for the purpose of the testing. 
-    coor[1] = 100
-    coor[2] = 100
-    #variables set for tolerance
 
-  
-    while(time.clock() < targettime):  #DISCLAIMER: THIS CODE WILL MOST LIKELY NOT WORK SO AS OF NOW THIS IS SOME  PESUDOCODING
-                                        
-        if(coor[0] < xcoor): #If the value of the x-coordinate given is greater than the target x-coordinate then the machine will move left
+def checkPoint():
+
+     #DISCLAIMER: THIS CODE WILL MOST LIKELY NOT WORK SO AS OF NOW THIS IS SOME  PESUDOCODING
+        global coor
+        global maxcoor
+        if(maxcoor[0] < coor[0]): #If the value of the x-coordinate given is greater than the target x-coordinate then the machine will move left
             ser.write(left)
-            print 'Current x-coordinate' xcoor
-            print 'Target x-coordinate' coor[0]
-        elif(coor[0] > xcoor): #If the value of the x-coordinate given is less than the target x-coordinate then the machine will move right
+            print 'Current x-coordinate' coor[0]
+            print 'Target x-coordinate' maxcoor[0]
+        elif(maxcoor[0] > coor[0]): #If the value of the x-coordinate given is less than the target x-coordinate then the machine will move right
             ser.write(right)
-            print 'Current x-coordinate' xcoor
-            print 'Target x-coordinate' coor[0]
+            print 'Current x-coordinate' coor[0]
+            print 'Target x-coordinate' maxcoor[0]
 
-        if(coor[1] < ycoor):
+        if(maxcoor[1] < coor[1]):
             ser.write(backward) #If the value of the y-coordinate given is greater than the target y-coordinate then the machine will move backward
-            print 'Current y-coordinate' ycoor
-            print 'Target y-coordinate' coor[1]
-        elif(coor[1] > ycoor):
+            print 'Current y-coordinate' coor[1])
+            print 'Target y-coordinate' maxcoor[1]
+        elif(maxcoor[1] > coor[1])):
             ser.write(forward) #If the value of the y-coordinate given is greater than the target y-coordinate then the machine will move forward
-            print 'Current y-coordinate' ycoor
-            print 'Target y-coordinate' coor[1]
+            print 'Current y-coordinate' coor[1])
+            print 'Target y-coordinate' maxcoor[1]
 
-        if(coor[2] < zcoor):
+        if(maxcoor[2] < coor[2]):
             ser.write(dive)    
-            print 'Current z-coordinate' zcoor
-            print 'Target z-coordinate' coor[2]
-        elif(coor[2] > zcoor):
+            print 'Current z-coordinate' coor[2]
+            print 'Target z-coordinate' maxcoor[2]
+        elif(maxcoor[2] > coor[2]):
             ser.write(rise)
-            print 'Current z-coordinate' zcoor
-            print 'Target z-coordinate' coor[2] 
+            print 'Current z-coordinate' coor[2]
+            print 'Target z-coordinate' maxcoor[2] 
 
-        if(coor[0]==xcoor)and(coor[1]==ycoor)and(coor[2]==zcoor): 
+        if(maxcoor[0]==coor[0])and(maxcoor[1]==coor[1])and(maxcoor[2]==coor[2]): 
             ser.write(idle) 
             #Theoretically, the machine will go "IDLE" or cease of all movement should the machine reach its targetted coordinates.
             print 'Target destination reached'
+
+
 def getIMU(command,setting):
       ser.write(command)
       responsecmd = ser.readline()
@@ -255,16 +256,14 @@ ser.write(pwr)
 while i<10:
 
    coor = getcoordinate()
+   currentcoor = checkPoint()
    i+=1
-  #getting the coordinates from the getcoordinate function
-   # xcoor = coor[0]
-   # ycoor = coor[1]
-   # zcoor = coor[2]
+  
 
 # check position against target position (within tolerance)
- # if(((coor[0] > targetx + tol)or(coor[0] < targetx - tol))and
-              # ((coor[1] > targety + tol)or(coor[1] < targety - tol))and
-              # ((coor[2] > targetz + tol)or(coor[2] < targetz - tol))):
-               #   continue
+  if(((coor[0] > targetx + tol)or(coor[0] < targetx - tol))and
+              ((coor[1] > targety + tol)or(coor[1] < targety - tol))and
+               ((coor[2] > targetz + tol)or(coor[2] < targetz - tol))):
+                 continue
   else:
                  hover(coor[0], coor[1], coor[2])
