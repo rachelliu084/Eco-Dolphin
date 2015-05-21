@@ -243,10 +243,12 @@ def getcoordinate():
         ser.close()
 
 def resurface
+     global tol 
+     global coor
    
-   while coor 2 > tol
-      getcoordinate()
-      ser.write(rise)
+     while coor 2 > tol
+       coor = getcoordinate()
+       ser.write(rise)
       
 #main code begins here
 
