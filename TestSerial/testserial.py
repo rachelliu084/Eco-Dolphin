@@ -69,7 +69,47 @@ def hover(diffx, diffy, diffz):
            ser.write(dive)
          else:
            ser.write(idle)
+def Boundary(xcoor,ycoor,zcoor):
+    tolx = 100#Since we don't know the exact coordinates for the robot to stop, I set them up as 100 for both x,y,z coordinates
+#for the purpose of the testing. 
+    toly = 100
+    tolz = 100
+    #variables set for tolerance
 
+  
+    while(time.clock() < targettime):  #DISCLAIMER: THIS CODE WILL MOST LIKELY NOT WORK SO AS OF NOW THIS IS SOME  PESUDOCODING
+                                        
+        if(tolx < xcoor): #If the value of the x-coordinate given is greater than the target x-coordinate then the machine will move left
+            ser.write(left)
+            print 'Current x-coordinate' xcoor
+            print 'Target x-coordinate' tolx
+        elif(tolx > xcoor): #If the value of the x-coordinate given is less than the target x-coordinate then the machine will move right
+            ser.write(right)
+            print 'Current x-coordinate' xcoor
+            print 'Target x-coordinate' tolx
+
+        if(toly < ycoor):
+            ser.write(backward) #If the value of the y-coordinate given is greater than the target y-coordinate then the machine will move backward
+            print 'Current y-coordinate' ycoor
+            print 'Target y-coordinate' toly
+        elif(toly > ycoor):
+            ser.write(forward) #If the value of the y-coordinate given is greater than the target y-coordinate then the machine will move forward
+            print 'Current y-coordinate' ycoor
+            print 'Target y-coordinate' toly
+
+        if(tolz < zcoor):
+            ser.write(dive)    
+            print 'Current z-coordinate' zcoor
+            print 'Target z-coordinate' tolz
+        elif(tolz > zcoor):
+            ser.write(rise)
+            print 'Current z-coordinate' zcoor
+            print 'Target z-coordinate' tolz 
+
+        if(tolx==xcoor)and(toly==ycoor)and(tolz==zcoor): 
+            ser.write(idle) 
+            #Theoretically, the machine will go "IDLE" or cease of all movement should the machine reach its targetted coordinates.
+            print 'Target destination reached'
 def getIMU(command,setting):
       ser.write(command)
       responsecmd = ser.readline()
@@ -208,10 +248,15 @@ while i<10:
 
    coor = getcoordinate()
    i+=1
+  #getting the coordinates from the getcoordinate function
+   xcoor = coor[0]
+   ycoor = coor[1]
+   zcoor = coor[2]
+   Boundary(xcoor,ycoor,zcoor)
 # check position against target position (within tolerance)
-  if(((coor[0] > targetx + tol)or(coor[0] < targetx - tol))and
-               ((coor[1] > targety + tol)or(coor[1] < targety - tol))and
-               ((coor[2] > targetz + tol)or(coor[2] < targetz - tol))):
-                  continue
+ # if(((coor[0] > targetx + tol)or(coor[0] < targetx - tol))and
+              # ((coor[1] > targety + tol)or(coor[1] < targety - tol))and
+              # ((coor[2] > targetz + tol)or(coor[2] < targetz - tol))):
+               #   continue
   else:
                  hover(coor[0], coor[1], coor[2])
