@@ -244,7 +244,7 @@ def getcoordinate():
 
 def resurface
    
-   while z<tol
+   while coor 2 > tol
       getcoordinate()
       ser.write(rise)
       
