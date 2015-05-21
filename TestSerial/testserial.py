@@ -75,43 +75,43 @@ def setBoundary(xcoor,ycoor,zcoor):
     coor[0] = xcoor
     coor[1] = ycoor
     coor[2] = zcoor
-    tolx = 100#Since we don't know the exact coordinates for the robot to stop, I set them up as 100 for both x,y,z coordinates
+    coor[0] = 100#Since we don't know the exact coordinates for the robot to stop, I set them up as 100 for both x,y,z coordinates
 #for the purpose of the testing. 
-    toly = 100
-    tolz = 100
+    coor[1] = 100
+    coor[2] = 100
     #variables set for tolerance
 
   
     while(time.clock() < targettime):  #DISCLAIMER: THIS CODE WILL MOST LIKELY NOT WORK SO AS OF NOW THIS IS SOME  PESUDOCODING
                                         
-        if(tolx < xcoor): #If the value of the x-coordinate given is greater than the target x-coordinate then the machine will move left
+        if(coor[0] < xcoor): #If the value of the x-coordinate given is greater than the target x-coordinate then the machine will move left
             ser.write(left)
             print 'Current x-coordinate' xcoor
-            print 'Target x-coordinate' tolx
-        elif(tolx > xcoor): #If the value of the x-coordinate given is less than the target x-coordinate then the machine will move right
+            print 'Target x-coordinate' coor[0]
+        elif(coor[0] > xcoor): #If the value of the x-coordinate given is less than the target x-coordinate then the machine will move right
             ser.write(right)
             print 'Current x-coordinate' xcoor
-            print 'Target x-coordinate' tolx
+            print 'Target x-coordinate' coor[0]
 
-        if(toly < ycoor):
+        if(coor[1] < ycoor):
             ser.write(backward) #If the value of the y-coordinate given is greater than the target y-coordinate then the machine will move backward
             print 'Current y-coordinate' ycoor
-            print 'Target y-coordinate' toly
-        elif(toly > ycoor):
+            print 'Target y-coordinate' coor[1]
+        elif(coor[1] > ycoor):
             ser.write(forward) #If the value of the y-coordinate given is greater than the target y-coordinate then the machine will move forward
             print 'Current y-coordinate' ycoor
-            print 'Target y-coordinate' toly
+            print 'Target y-coordinate' coor[1]
 
-        if(tolz < zcoor):
+        if(coor[2] < zcoor):
             ser.write(dive)    
             print 'Current z-coordinate' zcoor
-            print 'Target z-coordinate' tolz
-        elif(tolz > zcoor):
+            print 'Target z-coordinate' coor[2]
+        elif(coor[2] > zcoor):
             ser.write(rise)
             print 'Current z-coordinate' zcoor
-            print 'Target z-coordinate' tolz 
+            print 'Target z-coordinate' coor[2] 
 
-        if(tolx==xcoor)and(toly==ycoor)and(tolz==zcoor): 
+        if(coor[0]==xcoor)and(coor[1]==ycoor)and(coor[2]==zcoor): 
             ser.write(idle) 
             #Theoretically, the machine will go "IDLE" or cease of all movement should the machine reach its targetted coordinates.
             print 'Target destination reached'
