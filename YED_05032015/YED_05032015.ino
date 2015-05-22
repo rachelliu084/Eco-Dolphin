@@ -50,14 +50,17 @@ void loop()
     else {
        Raspberry_TX("WRONG DATA");
     }
-    
+
   else if(Data_Raspberry == "Motion")
       {
         strcpy(Data_Raspberry, "");
         if(Th_PWR == 0) { Th_PWR = Thruster_PWR(Thruster_ON); Thruster_Init(); Buzzer_3x500ms(); }
         Raspberry_TX(Ready);
         Raspberry_RX(Data_Raspberry);
-        if(Data_Raspberry == "IMU")  { IMU_Data(Accel, x, y, z); Raspberry_TX(); }
+        if(Data_Raspberry == "IMU")  { 
+          IMU_Data(Accel, x, y, z); Raspberry_TX(x+y+z); 
+          IMU_Data(Gyro, x, y, z); Raspberry_TX(x+y+z); 
+    }
        /* else if(Data_Raspberry == "Accel-y") { IMU_Data(Accel, x, y, z); Raspberry_TX(y); }
             else if(Data_Raspberry == "Accel-z") { IMU_Data(Accel, x, y, z); Raspberry_TX(z); }
                 else if(Data_Raspberry == "Gyro-x") { IMU_Data(Gyro, x, y, z); Raspberry_TX(x); }
