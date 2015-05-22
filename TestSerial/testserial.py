@@ -5,25 +5,18 @@ import time
 # Global variables defined as follows
 port = '/dev/ttyACM1'
 baud = 57600
-x = 'Accelx'
-y = 'Accely'
-z = 'Accelz'
-gyrox = 'Gyrox'
-gyroy = 'Gyroy'
-gyroz = 'Gyroz'
-pwr = 'PowerOn'
-pwroff = 'PowerOFF'
-move = 'Motion'
-right = 'Turn right'
-left = 'Turn left'
-rise = 'Surface'
-dive = 'Descend'
-idle = 'Dead zone'
-sonarpos = 'Position'
-forward = 'Go straight'
-backward = 'Go back'
-sett = 'IMUSet'
-ready = 'Ready'
+IMU = 1
+PwrOn = 2
+PwrOff = 3
+Idle = 4
+Hover = 5
+Motion = 6
+Right = 7
+Left = 8
+Rise = 9
+Dive = 10
+Fwd = 11
+Back = 12
 targetmag = 89
 coor = [0.0,0.0,0.0]
 maxcoor = [0.0,0.0,0.0]
@@ -154,45 +147,16 @@ def getcoordinate():
              print responsethr
              if (responsethr == ''):
                print 'testing4'
-               ser.write(right)
-               responsethr = ser.readline()
-               print 'Agent message: ', responsethr
-               ser.write(pwr)
+               ser.write(IMU)
+               responseIMU = ser.readline()
+               print 'Agent message: ', responseIMU
+               ser.write(PwrOn)
                #responsepwr = ser.readline()
              else:
                print 'testing5'
-               print responsethr
-             #convert the string response to float
-             xaccel = float(responsex)
-             yaccel = float(responsey)
-             zaccel = float(responsez)
-             print 'Accel x= ', xaccel
-             print 'Accel y= ', yaccel
-             print 'Accel z= ', zaccel
-             anglex = float(responsegyrox)
-             angley = float(responsegyroy)
-             anglez = float(responsegyroz)
-             print 'Gyro x= ', anglex
-             print 'Gyro y= ', angley
-             print 'Gyro z= ', anglez
-             #ser.write(mag)
-             #responsemag = ser.readline()
-             #if(targetmag < responsemag):
-             #ser.write(left)
-             #print float(responsemag)
-             #elif(targetmag > responsemag):
-              # ser.write(right)
-               #print float(responsemag)
-
-             # else:
-             # ser.write(idle)
-             # ser.write(sonarpos)
-             # check(sonar) position
-             # if(!waypoint):
-             # continue
-             # else:
-             #hover(targetheading)
-
+               print responseIMU
+             
+             
              diffx = xaccel - prevx
              diffy = yaccel - prevy
              diffz = zaccel - prevz
