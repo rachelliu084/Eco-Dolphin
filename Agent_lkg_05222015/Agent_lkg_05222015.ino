@@ -13,7 +13,8 @@ char Data_Raspberry[Raspberry_Data_Width];
 char Data_Sonar[Sonar_Data_Width];
 char x[8], y[8], z[8];
 int TH[4] = {1500, 1500, 1500 ,1500};// Last one TH[4] is time, 0-99s
-int cmd=0
+int cmd = 0
+
 
 /*---------------------Status Word-----------------------*/
 int Th_PWR = 0;
@@ -41,43 +42,80 @@ void loop() {
   strcpy(Data_Raspberry, "");// clear command
   Raspberry_RX(Data_Raspberry);
   
-  
+  cmd = toInt(Data_Raspberry);
   switch(cmd);{
-        case 1:
-         IMU_Data(Accel, x, y, z); Raspberry_TX(x+y+z); 
-        IMU_Data(Gyro, x, y, z); Raspberry_TX(x+y+z);
+        case 1: //IMU
+         IMU_Data(IMU)
+         Serial.println(IMU)
         break;
-        case 2:
+        
+        case 2: //PwrOn
          if(Th_PWR == 0) { Th_PWR = Thruster_PWR(Thruster_ON); Thruster_Init(); Buzzer_3x500ms(); }
          Raspberry_TX(Ready);
-          IMU_Data(Accel, x, y, z); Raspberry_TX(x+y+z); 
-          IMU_Data(Gyro, x, y, z); Raspberry_TX(x+y+z); 
-        }
+         
+            }
             Thruster_Speed(TH);
         Raspberry_TX(TH); //sending the feedback chosen from the thrusters to the raspberry
         break;
-        case 3:
+        
+        case 3: //PwrOff
           {
             Th_PWR = Thruster_PWR(Thruster_OFF);
           }
         Raspberry_TX(Th_Set);
+        
         break;
-        case 4: { TH[0] = Thruster1; TH[1] = IDLE; TH[2] = IDLE; TH[3] = IDLE; } 
+        
+        case 4: //Idle { 
+          TH[0] = Thruster1; TH[1] = IDLE; TH[2] = IDLE; TH[3] = IDLE; 
+          
+        } 
+        
         break;
-        case 5: { TH[0] = IDLE; TH[1] = Thruster2; TH[2] = IDLE; TH[3] = IDLE; }
+        
+        case 5:  //Hover
+          TH[0] = IDLE; TH[1] = Thruster2; TH[2] = IDLE; TH[3] = IDLE; 
+          
+        
         break;
-        case 6: { TH[0] = IDLE; TH[1] = IDLE; TH[2] = Thruster3; TH[3] = IDLE;}
+        case 6: //Motion
+          TH[0] = IDLE; TH[1] = IDLE; TH[2] = Thruster3; TH[3] = IDLE;
+          
+        
         break;
-        case 7: { TH[0] = IDLE; TH[1] = IDLE; TH[2] = IDLE; TH[3] = Thruster4; }
+        case 7: //Right
+          TH[0] = IDLE; TH[1] = IDLE; TH[2] = IDLE; TH[3] = Thruster4; 
+          
+        
         break; 
-        case 8: {  TH[0] = Thruster1; TH[1] = Thruster2; TH[2] = IDLE; TH[3] = IDLE; }  
+        case 8:  //Left
+          TH[0] = Thruster1; TH[1] = Thruster2; TH[2] = IDLE; TH[3] = IDLE; 
+          
+         
         break;
-        case 9: { TH[0] = Reverse1; TH[1] = Reverse2; TH[2] = IDLE; TH[3] = IDLE;  }
+        case 9: //Rise
+          TH[0] = Reverse1; TH[1] = Reverse2; TH[2] = IDLE; TH[3] = IDLE; 
+          
         break;
-        case 10: { TH[0] = IDLE; TH[1] = IDLE; TH[2] = IDLE; TH[3] = IDLE; }
+        case 10:  //Dive
+          TH[0] = IDLE; TH[1] = IDLE; TH[2] = IDLE; TH[3] = IDLE;
+          
         break;
         // Thruster_Setting(Data_Raspberry, TH);
-        case 11:
+        
+        case 11: //Fwd
+        
+        TH[0] = IDLE; TH[1] = IDLE; TH[2] = IDLE; TH[3] = IDLE;
+        
+        break;
+        
+        case 12: //Back
+        
+        TH[0] = IDLE; TH[1] = IDLE; TH[2] = IDLE; TH[3] = IDLE;
+        
+        break;
+        
+        case 13: //Reset
         Raspberry_TX(Reset);
         digitalWrite (resetPin LOW);
         break;
