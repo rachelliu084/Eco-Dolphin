@@ -12,7 +12,7 @@
 char Data_Raspberry[Raspberry_Data_Width];
 char Data_Sonar[Sonar_Data_Width];
 char x[8], y[8], z[8];
-int TH[4] = {1500, 1500, 1500 ,1500};// Last one TH[4] is time, 0-99s
+int TH[4] = {1500, 1500, 1500 ,1500};
 int cmd = 0
 
 
@@ -43,33 +43,31 @@ void loop() {
   Raspberry_RX(Data_Raspberry);
   
   cmd = toInt(Data_Raspberry);
-  switch(cmd);{
+  switch(cmd) {
         case 1: //IMU
          IMU_Data(IMU)
          Serial.println(IMU)
-        break;
+         break;
         
         case 2: //PwrOn
          if(Th_PWR == 0) { Th_PWR = Thruster_PWR(Thruster_ON); Thruster_Init(); Buzzer_3x500ms(); }
          Raspberry_TX(Ready);
-         
-            }
-            Thruster_Speed(TH);
-        Raspberry_TX(TH); //sending the feedback chosen from the thrusters to the raspberry
+         Thruster_Stop(); 
+       
         break;
         
         case 3: //PwrOff
-          {
+          
             Th_PWR = Thruster_PWR(Thruster_OFF);
-          }
-        Raspberry_TX(Th_Set);
+          
+        Raspberry_TX("Pwr_Off");
         
         break;
         
-        case 4: //Idle { 
-          TH[0] = Thruster1; TH[1] = IDLE; TH[2] = IDLE; TH[3] = IDLE; 
+        case 4: //Idle 
+          Thruster_Stop(); 
           
-        } 
+         
         
         break;
         
