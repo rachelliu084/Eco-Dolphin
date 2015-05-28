@@ -20,10 +20,12 @@ int Th_PWR = 0;
 /*---------------------Status Command-----------------------*/
 char Ready[] = "Ready";
 char Th_Set[] = "Th_Set";
-
+int resetPin = 12;
 
 void setup()
 {
+  digitalWrite(resetPin, HIGH);
+  pinMode(resetPin, OUTPUT);
   Raspberry_Init();
   Buzzer_Init();
   Power_Init();
@@ -78,6 +80,13 @@ void loop() {
                         else if(strcmp(Data_Raspberry, "Go back")==0) { TH[0] = Reverse1; TH[1] = Reverse2; TH[2] = IDLE; TH[3] = IDLE;  }
                           else if(strcmp(Data_Raspberry, "Dead zone")==0) { TH[0] = IDLE; TH[1] = IDLE; TH[2] = IDLE; TH[3] = IDLE; }
         // Thruster_Setting(Data_Raspberry, TH);
+        
+        
+        else if(strcmp(Data_Raspberry,"reset")==0)
+      {
+        Raspberry_TX(Reset);
+        digitalWrite (resetPin LOW);
+        }
 
 
                    
