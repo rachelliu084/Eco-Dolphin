@@ -42,53 +42,72 @@ void loop() {
   Raspberry_RX(Data_Raspberry);
   
   
-  switch(cmd);
+  switch(cmd);{
     
-  case 1:(strcmp(Data_Raspberry, "IMU")==0)  { 
+  case 1:
       IMU_Data(Accel, x, y, z); Raspberry_TX(x+y+z); 
       IMU_Data(Gyro, x, y, z); Raspberry_TX(x+y+z);
-    }
-   
+    
+   break;
 
-  case 2:(strcmp(Data_Raspberry,"Motion")==0)
-      {
-        strcpy(Data_Raspberry, "");
+  case 2:
         if(Th_PWR == 0) { Th_PWR = Thruster_PWR(Thruster_ON); Thruster_Init(); Buzzer_3x500ms(); }
         Raspberry_TX(Ready);
-        Raspberry_RX(Data_Raspberry);
-        if(strcmp(Data_Raspberry, "IMU")==0)  { 
           IMU_Data(Accel, x, y, z); Raspberry_TX(x+y+z); 
           IMU_Data(Gyro, x, y, z); Raspberry_TX(x+y+z); 
         }
-            Raspberry_RX(Data_Raspberry);// wait until get the next command              
+                         
             Thruster_Speed(TH);
 
         Raspberry_TX(TH); //sending the feedback chosen from the thrusters to the raspberry
 
+      break;
       
-      case 3:(strcmp(Data_Raspberry,"PowerOFF")==0)
+      case 3:
           {
             Th_PWR = Thruster_PWR(Thruster_OFF);
           }
-                         
-     // delay(100);
-        } // end of while loop
         Raspberry_TX(Th_Set);
-        Raspberry_RX(Data_Raspberry);
-         case 4:(strcmp(Data_Raspberry,"Turn right")==0) { TH[0] = Thruster1; TH[1] = IDLE; TH[2] = IDLE; TH[3] = IDLE; }
-        case 5:(strcmp(Data_Raspberry, "Turn left")==0) { TH[0] = IDLE; TH[1] = Thruster2; TH[2] = IDLE; TH[3] = IDLE; }
-            case 6:(strcmp(Data_Raspberry, "Surface")==0) { TH[0] = IDLE; TH[1] = IDLE; TH[2] = Thruster3; TH[3] = IDLE;}
-                case 7:(strcmp(Data_Raspberry, "Descend")==0) { TH[0] = IDLE; TH[1] = IDLE; TH[2] = IDLE; TH[3] = Thruster4; }
-                    case 8:(strcmp(Data_Raspberry, "Go straight")==0) {  TH[0] = Thruster1; TH[1] = Thruster2; TH[2] = IDLE; TH[3] = IDLE; }
-                        case 9:(strcmp(Data_Raspberry, "Go back")==0) { TH[0] = Reverse1; TH[1] = Reverse2; TH[2] = IDLE; TH[3] = IDLE;  }
-                          case 10:(strcmp(Data_Raspberry, "Dead zone")==0) { TH[0] = IDLE; TH[1] = IDLE; TH[2] = IDLE; TH[3] = IDLE; }
+
+        
+        break;
+        
+         case 4: { TH[0] = Thruster1; TH[1] = IDLE; TH[2] = IDLE; TH[3] = IDLE; }
+         
+         break;
+         
+        case 5: { TH[0] = IDLE; TH[1] = Thruster2; TH[2] = IDLE; TH[3] = IDLE; }
+        
+        break;
+        
+            case 6: { TH[0] = IDLE; TH[1] = IDLE; TH[2] = Thruster3; TH[3] = IDLE;}
+            
+            break;
+            
+                case 7: { TH[0] = IDLE; TH[1] = IDLE; TH[2] = IDLE; TH[3] = Thruster4; }
+                
+                break;
+                
+                    case 8: {  TH[0] = Thruster1; TH[1] = Thruster2; TH[2] = IDLE; TH[3] = IDLE; }
+                    
+                    break;
+                    
+                        case 9: { TH[0] = Reverse1; TH[1] = Reverse2; TH[2] = IDLE; TH[3] = IDLE;  }
+                        
+                        break;
+                        
+                          case 10: { TH[0] = IDLE; TH[1] = IDLE; TH[2] = IDLE; TH[3] = IDLE; }
+                          
+                          break;
+                          
         // Thruster_Setting(Data_Raspberry, TH);
         
         
-        case 11:(strcmp(Data_Raspberry,"reset")==0)
-      {
+        case 11:
         Raspberry_TX(Reset);
         digitalWrite (resetPin LOW);
+        
+        break;
         }
 
 
