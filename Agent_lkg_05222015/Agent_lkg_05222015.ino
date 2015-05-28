@@ -42,7 +42,7 @@ void loop() {
   strcpy(Data_Raspberry, "");// clear command
   Raspberry_RX(Data_Raspberry);
   
-  cmd = toInt(Data_Raspberry);
+  cmd = string.toInt(Data_Raspberry);
   switch(cmd) {
         case 1: //IMU
          IMU_Data(IMU)
