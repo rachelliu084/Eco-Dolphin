@@ -2,33 +2,25 @@ import serial
 import math
 import time
 
-port = '/dev/ttyACM2'
+# Global variables defined as follows
+port = '/dev/ttyACM1'
 baud = 57600
-
-x = 'Accelx'
-y = 'Accely'
-z = 'Accelz'
-gyrox = 'Gyrox'
-gyroy = 'Gyroy'
-gyroz = 'Gyroz'
-pwr = 'PowerOn'
-pwroff = 'PowerOFF'
-move = 'Motion'
-right = 'Turn right'
-left = 'Turn left'
-rise = 'Surface'
-dive = 'Descend'
-idle = 'Dead zone'
-sonarpos = 'Position'
-forward = 'Go straight'
-backward = 'Go back'
-set = 'IMUSet'
-ready = 'Ready'
+IMU = 1
+PwrOn = 2
+PwrOff = 3
+Idle = 4
+Hover = 5
+Motion = 6
+Right = 7
+Left = 8
+Rise = 9
+Dive = 10
+Fwd = 11
+Back = 12
 targetmag = 89
-targetx = 20
-targety = 20
-targetz = 20
-tol = 3
+coor = [0.0,0.0,0.0]
+maxcoor = [0.0,0.0,0.0]
+i = 0
 prevx = 0
 prevy = 0
 prevz = 0
@@ -40,315 +32,131 @@ prevdeltay = 0
 prevdeltaz = 0
 prevtime = time.clock()
 
+#Serial communication definition and initialization
 ser = serial.Serial(port, baud, timeout=1)
 ser.open()
 
-def hover(x, y, z):
+#function definitions - hover, getIMU, getcoordinate, resurface
+def hover(diffx, diffy, diffz):
     targettime = time.clock()+10
     while(time.clock() < targettime):
-         if(y < 0):
+         if(diffy < 0):
             ser.write(forward)
 
-         elif(y > 0):
+         elif(diffy > 0):
             ser.write(backward)
+
          else:
            ser.write(idle)
 
 
-         if(x < 0):
+         if(diffx < 0):
             ser.write(right)
-         elif(x > 0):
+         elif(diffx > 0):
            ser.write(left)
          else:
            ser.write(idle)
 
-         if(z < 0):
+         if(diffz < 0):
            ser.write(rise)
-         elif(z > 0):
+         elif(diffz > 0):
            ser.write(dive)
          else:
            ser.write(idle)
-         
-def resurface (z)
-
-        while z>tol
-        
-           serial.write(rise)
-           #get z to see if at surface yet
-           
-def getcoordinate():
-     coor = []
-     coor.append(xaccel)
-     coor.append(yaccel)
-     ser.write(pwr)
-        print 'testing1'
-        while 1:
-           print 'testing2'
-           responsepwr = ser.readline()
-           print responsepwr
+def setBoundary(xcoor,ycoor,zcoor):
+    global coor
+    global maxcoor
+    maxcoor[0] = xcoor
+    maxcoor[1] = ycoor
+    maxcoor[2] = zcoor
     
-#Get IMU data once the initialization is complete
-           if (responsepwr == 'Ready'):
-             responsex = getIMU(x,move)
-             responsey = getIMU(y,move)
-             responsez = getIMU(z,move)
-             responsegyrox = getIMU(gyrox,move)
-             responsegyroy = getIMU(gyroy,move)
-             responsegyroz = getIMU(gyroz,set)
-	     responsethr = ser.readline()
-             print responsethr
-             if (responsethr == ''):
-               print 'testing4'
-               ser.write(right)
-               responsethr = ser.readline()
-               print responsethr
-               ser.write(pwr)
-               #responsepwr = ser.readline()
-             else:
-               print 'testing5'
-               print responsethr
-       print responsex
-       print responsey
-       print responsez
-# Convert the string input to floating point decimal and print
-             xaccel = float(responsex)
-             yaccel = float(responsey)
-             zaccel = float(responsez)
-             print 'Accel x: ', xaccel
-             print 'Accel y: ', yaccel
-             print 'Accel z: ', zaccel
-             anglex = float(responsegyrox)
-             angley = float(responsegyroy)
-             anglez = float(responsegyroz)
-             print 'Angle x: ', anglex
-             print 'Angle y: ', angley
-	     print 'Angle z: ', anglez
 
-# Find the difference in the coordinates against the previous values
-             diffx = xaccel - prevx
-             diffy = yaccel - prevy
-             diffz = zaccel - prevz
-             difftime = time.clock() - prevtime
-             deltax = 0.5*diffx*math.pow(difftime,2)
-             deltay = 0.5*diffy*math.pow(difftime,2)
-             deltaz = 0.5*diffz*math.pow(difftime,2)
+def checkPoint():
 
-# figure out current location based on acceleration and time
-             currentx = deltax + prevdeltax
-             currenty = deltay + prevdeltay
-             currentz = deltaz + prevdeltaz
-             diffanglex = anglex - preanglex
-             diffangley = angley - preangley
-             diffanglez = anglez - preanglez
+     #DISCLAIMER: THIS CODE WILL MOST LIKELY NOT WORK SO AS OF NOW THIS IS SOME  PESUDOCODING
+        global coor
+        global maxcoor
+        if(maxcoor[0] < coor[0]): #If the value of the x-coordinate given is greater than the target x-coordinate then the machine will move left
+            ser.write(left)
+            print 'Current x-coordinate' coor[0]
+            print 'Target x-coordinate' maxcoor[0]
+        elif(maxcoor[0] > coor[0]): #If the value of the x-coordinate given is less than the target x-coordinate then the machine will move right
+            ser.write(right)
+            print 'Current x-coordinate' coor[0]
+            print 'Target x-coordinate' maxcoor[0]
 
-# find change in angle, acceleration, and distance in x,y,z
-             diffaccel = math.sqrt((math.pow(diffx,2))+(math.pow(diffy,2))+(math.pow(diffz,2)))
-             diffangle = math.sqrt((math.pow(diffanglex,2))+(math.pow(diffangley,2))+(math.pow(diffanglez,2)))
+        if(maxcoor[1] < coor[1]):
+            ser.write(backward) #If the value of the y-coordinate given is greater than the target y-coordinate then the machine will move backward
+            print 'Current y-coordinate' coor[1])
+            print 'Target y-coordinate' maxcoor[1]
+        elif(maxcoor[1] > coor[1])):
+            ser.write(forward) #If the value of the y-coordinate given is greater than the target y-coordinate then the machine will move forward
+            print 'Current y-coordinate' coor[1])
+            print 'Target y-coordinate' maxcoor[1]
 
-# reassign the previous to the current
-             prevx = xaccel
-             prevy = yaccel
-             prevz = zaccel
-             prevdeltax = deltax
-             prevdeltay = deltay
-             prevdeltaz = deltaz
-             preanglex = anglex
-             preangley = angley
-             preanglez = anglez
-             prevtime = time.clock()
-# figure out the next manuever and send thruster command
-             responsethr = ser.readline()
-             if (responsethr == 'Th_Set'):
-		currentangle = math.cos(anglex/angley)
-		if(targetmag < currentangle):
-             	   ser.write(left)
-                elif(targetmag > currentangle):
-                   ser.write(right)
-		else:
-            	   ser.write(idle)
-# check position against target position (within tolerance)
-             if(((xaccel > targetx + tol)or(xaccel < targetx - tol))and 
-		((yaccel > targety + tol)or(yaccel < targety - tol))and 
-		((zaccel > targetz + tol)or(zaccel < targetz - tol))):
-               continue
-             else:
-                hover(xaccel, yaccel, zaccel)
+        if(maxcoor[2] < coor[2]):
+            ser.write(dive)    
+            print 'Current z-coordinate' coor[2]
+            print 'Target z-coordinate' maxcoor[2]
+        elif(maxcoor[2] > coor[2]):
+            ser.write(rise)
+            print 'Current z-coordinate' coor[2]
+            print 'Target z-coordinate' maxcoor[2] 
 
-# print output
-             print 'Change in acceleration: ', diffaccel
-             print 'x = ', currentx
-             print 'y = ', currenty
-             print 'z = ', currentz
-             print 'time elapsed: ', difftime
-             print 'code success'
-          
-   except KeyboardInterrupt:
-             ser.close()
+        if(maxcoor[0]==coor[0])and(maxcoor[1]==coor[1])and(maxcoor[2]==coor[2]): 
+            ser.write(idle) 
+            #Theoretically, the machine will go "IDLE" or cease of all movement should the machine reach its targetted coordinates.
+            print 'Target destination reached'
 
-             coor.append(zaccel)
-             ser.write(pwr)
-             print 'testing1'
-             while 1:
-             print 'testing2'
-             responsepwr = ser.readline()
-             print responsepwr
-    
-#Get IMU data once the initialization is complete
-           if (responsepwr == 'Ready'):
-             responsex = getIMU(x,move)
-             responsey = getIMU(y,move)
-             responsez = getIMU(z,move)
-             responsegyrox = getIMU(gyrox,move)
-             responsegyroy = getIMU(gyroy,move)
-             responsegyroz = getIMU(gyroz,set)
-	     responsethr = ser.readline()
-             print responsethr
-             if (responsethr == ''):
-               print 'testing4'
-               ser.write(right)
-               responsethr = ser.readline()
-               print responsethr
-               ser.write(pwr)
-               #responsepwr = ser.readline()
-             else:
-               print 'testing5'
-               print responsethr
-       print responsex
-       print responsey
-       print responsez
-# Convert the string input to floating point decimal and print
-             xaccel = float(responsex)
-             yaccel = float(responsey)
-             zaccel = float(responsez)
-             print 'Accel x: ', xaccel
-             print 'Accel y: ', yaccel
-             print 'Accel z: ', zaccel
-             anglex = float(responsegyrox)
-             angley = float(responsegyroy)
-             anglez = float(responsegyroz)
-             print 'Angle x: ', anglex
-             print 'Angle y: ', angley
-	     print 'Angle z: ', anglez
-
-# Find the difference in the coordinates against the previous values
-             diffx = xaccel - prevx
-             diffy = yaccel - prevy
-             diffz = zaccel - prevz
-             difftime = time.clock() - prevtime
-             deltax = 0.5*diffx*math.pow(difftime,2)
-             deltay = 0.5*diffy*math.pow(difftime,2)
-             deltaz = 0.5*diffz*math.pow(difftime,2)
-
-# figure out current location based on acceleration and time
-             currentx = deltax + prevdeltax
-             currenty = deltay + prevdeltay
-             currentz = deltaz + prevdeltaz
-             diffanglex = anglex - preanglex
-             diffangley = angley - preangley
-             diffanglez = anglez - preanglez
-
-# find change in angle, acceleration, and distance in x,y,z
-             diffaccel = math.sqrt((math.pow(diffx,2))+(math.pow(diffy,2))+(math.pow(diffz,2)))
-             diffangle = math.sqrt((math.pow(diffanglex,2))+(math.pow(diffangley,2))+(math.pow(diffanglez,2)))
-
-# reassign the previous to the current
-             prevx = xaccel
-             prevy = yaccel
-             prevz = zaccel
-             prevdeltax = deltax
-             prevdeltay = deltay
-             prevdeltaz = deltaz
-             preanglex = anglex
-             preangley = angley
-             preanglez = anglez
-             prevtime = time.clock()
-# figure out the next manuever and send thruster command
-             responsethr = ser.readline()
-             if (responsethr == 'Th_Set'):
-		currentangle = math.cos(anglex/angley)
-		if(targetmag < currentangle):
-             	   ser.write(left)
-                elif(targetmag > currentangle):
-                   ser.write(right)
-		else:
-            	   ser.write(idle)
-# check position against target position (within tolerance)
-             if(((xaccel > targetx + tol)or(xaccel < targetx - tol))and 
-		((yaccel > targety + tol)or(yaccel < targety - tol))and 
-		((zaccel > targetz + tol)or(zaccel < targetz - tol))):
-               continue
-             else:
-                hover(xaccel, yaccel, zaccel)
-
-# print output
-             print 'Change in acceleration: ', diffaccel
-             print 'x = ', currentx
-             print 'y = ', currenty
-             print 'z = ', currentz
-             print 'time elapsed: ', difftime
-             print 'code success'
-          
-except KeyboardInterrupt:
-        ser.close()
-     return coor
 
 def getIMU(command,setting):
-      #get the response by  sending a request from the agent
       ser.write(command)
       responsecmd = ser.readline()
 
-      #prepare for the next request by setting the mode
       ser.write(setting)
       responseready = ser.readline()
 
       return  responsecmd
+      
 
-try:
-        ser.write(pwr)
+def getcoordinate():
+     global prevx
+     global prevy
+     global prevz
+     global prevdeltax
+     global prevdeltay
+     global prevdeltaz
+     global preanglex
+     global preangley
+     global preanglez
+     global prevtime
+     global coor
+     
+     try:
         print 'testing1'
-        while 1:
-           print 'testing2'
-           responsepwr = ser.readline()
-           print responsepwr
-    
-#Get IMU data once the initialization is complete
-           if (responsepwr == 'Ready'):
+        responsepwr = ser.readline()
+        print 'Agent: ', responsepwr
+        if (responsepwr == 'Ready'):
              responsex = getIMU(x,move)
              responsey = getIMU(y,move)
              responsez = getIMU(z,move)
              responsegyrox = getIMU(gyrox,move)
              responsegyroy = getIMU(gyroy,move)
-             responsegyroz = getIMU(gyroz,set)
-	     responsethr = ser.readline()
+             responsegyroz = getIMU(gyroz,sett)
+             responsethr = ser.readline()
              print responsethr
              if (responsethr == ''):
                print 'testing4'
-               ser.write(right)
-               responsethr = ser.readline()
-               print responsethr
-               ser.write(pwr)
+               ser.write(IMU)
+               responseIMU = ser.readline()
+               print 'Agent message: ', responseIMU
+               ser.write(PwrOn)
                #responsepwr = ser.readline()
              else:
                print 'testing5'
-               print responsethr
-       print responsex
-       print responsey
-       print responsez
-# Convert the string input to floating point decimal and print
-             xaccel = float(responsex)
-             yaccel = float(responsey)
-             zaccel = float(responsez)
-             print 'Accel x: ', xaccel
-             print 'Accel y: ', yaccel
-             print 'Accel z: ', zaccel
-             anglex = float(responsegyrox)
-             angley = float(responsegyroy)
-             anglez = float(responsegyroz)
-             print 'Angle x: ', anglex
-             print 'Angle y: ', angley
-	     print 'Angle z: ', anglez
-
-# Find the difference in the coordinates against the previous values
+               print responseIMU
+             
+             
              diffx = xaccel - prevx
              diffy = yaccel - prevy
              diffz = zaccel - prevz
@@ -356,8 +164,6 @@ try:
              deltax = 0.5*diffx*math.pow(difftime,2)
              deltay = 0.5*diffy*math.pow(difftime,2)
              deltaz = 0.5*diffz*math.pow(difftime,2)
-
-# figure out current location based on acceleration and time
              currentx = deltax + prevdeltax
              currenty = deltay + prevdeltay
              currentz = deltaz + prevdeltaz
@@ -365,11 +171,14 @@ try:
              diffangley = angley - preangley
              diffanglez = anglez - preanglez
 
-# find change in angle, acceleration, and distance in x,y,z
+#find change in time, angle, acceleration, and distance in x,y,z
+             # difftime = time.clock() - prevtime
              diffaccel = math.sqrt((math.pow(diffx,2))+(math.pow(diffy,2))+(math.pow(diffz,2)))
              diffangle = math.sqrt((math.pow(diffanglex,2))+(math.pow(diffangley,2))+(math.pow(diffanglez,2)))
-
-# reassign the previous to the current
+             #deltax = 0.5*diffx*math.pow(difftime,2)
+             #deltay = 0.5*diffy*math.pow(difftime,2)
+             # deltaz = 0.5*diffz*math.pow(difftime,2)
+#reassign the previous to the current
              prevx = xaccel
              prevy = yaccel
              prevz = zaccel
@@ -380,31 +189,47 @@ try:
              preangley = angley
              preanglez = anglez
              prevtime = time.clock()
-# figure out the next manuever and send thruster command
-             responsethr = ser.readline()
-             if (responsethr == 'Th_Set'):
-		currentangle = math.cos(anglex/angley)
-		if(targetmag < currentangle):
-             	   ser.write(left)
-                elif(targetmag > currentangle):
-                   ser.write(right)
-		else:
-            	   ser.write(idle)
-# check position against target position (within tolerance)
-             if(((xaccel > targetx + tol)or(xaccel < targetx - tol))and 
-		((yaccel > targety + tol)or(yaccel < targety - tol))and 
-		((zaccel > targetz + tol)or(zaccel < targetz - tol))):
-               continue
-             else:
-                hover(xaccel, yaccel, zaccel)
+             #print output
+             print 'Change in Accel: ',diffaccel
+             print 'Current x: ', currentx
+             print 'Current y: ', currenty
+             print 'Current z: ', currentz
+             print 'Elapsed time: ' difftime
+             print 'IMU Settings received: code success'
+             coor[0] = currentx
+             coor[1] = currenty
+             coor[2] = currentz
 
-# print output
-             print 'Change in acceleration: ', diffaccel
-             print 'x = ', currentx
-             print 'y = ', currenty
-             print 'z = ', currentz
-             print 'time elapsed: ', difftime
-             print 'code success'
-          
-except KeyboardInterrupt:
+             return coor
+
+     # ser.write(move)
+     except KeyboardInterrupt:
         ser.close()
+
+def resurface
+     global tol 
+     global coor
+   
+     while coor 2 > tol
+       coor = getcoordinate()
+       ser.write(rise)
+      
+#main code begins here
+
+setBoundary(20.0,20.0,10.0)
+print coor 
+ser.write(pwr)
+while i<10:
+
+   coor = getcoordinate()
+   currentcoor = checkPoint()
+   i+=1
+  
+
+# check position against target position (within tolerance)
+  if(((coor[0] > targetx + tol)or(coor[0] < targetx - tol))and
+              ((coor[1] > targety + tol)or(coor[1] < targety - tol))and
+               ((coor[2] > targetz + tol)or(coor[2] < targetz - tol))):
+                 continue
+  else:
+                 hover(coor[0], coor[1], coor[2])
