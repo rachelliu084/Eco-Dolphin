@@ -132,12 +132,9 @@ def checkPoint():
             print 'Target destination reached'
         return None
 
-def getIMU(command,setting):
+def getIMU(command):
       ser.write(command)
       responsecmd = ser.readline()
-
-      ser.write(setting)
-      responseready = ser.readline()
 
       return  responsecmd
       
@@ -351,11 +348,25 @@ def resurface():
        ser.write(rise)
       
 #main code begins here
-
 setBoundary(20.0,20.0,10.0)
-print coor 
-ser.write(PwrOn)
 while i<=15:
+   ser.write(PwrOn)
+   response = ser.readline()
+   print response
+   if location == destination:
+	while diftime < 15:
+	   ser.write(Hover)
+	ser.write(Idle)
+	#write to sonar
+   else:
+	if response = 'Ready':
+		accel = getIMU(IMU)
+		gyro = getIMU(Gyro)
+	else:
+		print 'Not Ready'
+	
+   
+
   
    
       
@@ -365,7 +376,7 @@ while i<=15:
    fob.write('%01d\n' % i) 
    response = ser.readline()
    print response   
-   coor = getcoordinate(response)
+  #coor = getcoordinate(response)
 
   # checkPoint()
    print 'Current Time' , time.clock()
