@@ -69,7 +69,7 @@ def setBoundary(xcoor,ycoor,zcoor):
     maxcoor[0] = xcoor
     maxcoor[1] = ycoor
     maxcoor[2] = zcoor
-    
+
 
 def checkPoint():
 
@@ -95,16 +95,16 @@ def checkPoint():
             print 'Target y-coordinate' maxcoor[1]
 
         if(maxcoor[2] < coor[2]):
-            ser.write(dive)    
+            ser.write(dive)
             print 'Current z-coordinate' coor[2]
             print 'Target z-coordinate' maxcoor[2]
         elif(maxcoor[2] > coor[2]):
             ser.write(rise)
             print 'Current z-coordinate' coor[2]
-            print 'Target z-coordinate' maxcoor[2] 
+            print 'Target z-coordinate' maxcoor[2]
 
-        if(maxcoor[0]==coor[0])and(maxcoor[1]==coor[1])and(maxcoor[2]==coor[2]): 
-            ser.write(idle) 
+        if(maxcoor[0]==coor[0])and(maxcoor[1]==coor[1])and(maxcoor[2]==coor[2]):
+            ser.write(idle)
             #Theoretically, the machine will go "IDLE" or cease of all movement should the machine reach its targetted coordinates.
             print 'Target destination reached'
 
@@ -117,7 +117,7 @@ def getIMU(command,setting):
       responseready = ser.readline()
 
       return  responsecmd
-      
+
 
 def getcoordinate():
      global prevx
@@ -131,7 +131,7 @@ def getcoordinate():
      global preanglez
      global prevtime
      global coor
-     
+
      try:
         print 'testing1'
         responsepwr = ser.readline()
@@ -155,8 +155,8 @@ def getcoordinate():
              else:
                print 'testing5'
                print responseIMU
-             
-             
+
+
              diffx = xaccel - prevx
              diffy = yaccel - prevy
              diffz = zaccel - prevz
@@ -207,24 +207,24 @@ def getcoordinate():
         ser.close()
 
 def resurface
-     global tol 
+     global tol
      global coor
-   
+
      while coor 2 > tol
        coor = getcoordinate()
        ser.write(rise)
-      
+
 #main code begins here
 
 setBoundary(20.0,20.0,10.0)
-print coor 
+print coor
 ser.write(pwr)
 while i<10:
 
    coor = getcoordinate()
    currentcoor = checkPoint()
    i+=1
-  
+
 
 # check position against target position (within tolerance)
   if(((coor[0] > targetx + tol)or(coor[0] < targetx - tol))and
