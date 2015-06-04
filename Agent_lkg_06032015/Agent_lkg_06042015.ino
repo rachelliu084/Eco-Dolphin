@@ -18,7 +18,7 @@ int cmd = 0
 
 /*---------------------Status Word-----------------------*/
 int Th_PWR = 0;
-
+//My first useless comment
 /*---------------------Status Command-----------------------*/
 char Ready[] = "Ready";
 char Th_Set[] = "Th_Set";
