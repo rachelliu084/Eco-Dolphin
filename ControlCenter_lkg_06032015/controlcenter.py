@@ -17,6 +17,7 @@ Rise = 9
 Dive = 10
 Fwd = 11
 Back = 12
+Reset = 13
 targetmag = 89
 coor = [0.0,0.0,0.0]
 maxcoor = [0.0,0.0,0.0]
@@ -215,7 +216,8 @@ def resurface
        ser.write(rise)
 
 #main code begins here
-
+ser.write(Reset)
+time.sleep(2)
 setBoundary(20.0,20.0,10.0)
 print coor
 ser.write(pwr)
