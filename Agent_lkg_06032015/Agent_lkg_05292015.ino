@@ -115,7 +115,7 @@ void loop() {
         
         case 13: //Reset
         Raspberry_TX(Reset);
-        digitalWrite (resetPin LOW);
+        soft_restart();
         break;
         }
 
