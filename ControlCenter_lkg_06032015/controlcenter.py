@@ -380,24 +380,27 @@ while i < 30:
            print accel
            #This is the algorithm designed to truncate certain indices of the string to another set of string. 
            
-           for k in range(5,len(accel)):
-              if (accel[k] == ','):
+           #for k in range(5,len(accel)):
+            #  if (accel[k] == ','):
 
-                   comma += 1
-              else:
-                if(comma == 0):
-                   endx = k
-                   beginy = k+2
+               #    comma += 1
+              #else:
+                #if(comma == 0):
+                 #  endx = k
+                  # beginy = k+2
 
-                elif(comma == 1):
-                   endy = k
-                   beginz = k+2
-                else:
-                   endz = k
-
+                #elif(comma == 1):
+                 #  endy = k
+                  # beginz = k+2
+                #else:
+                 #  endz = k
+	   endx = accel.find(',')
            imux = accel[5:endx]
+	   beginy = endx+1
+	   endy = accel[beginy::].find(',')+beginy
            imuy = accel[beginy:endy]
-           imuz = accel[beginz:endz]
+	   beginz = endy+1
+           imuz = accel[beginz::]
            print 'IMU x ' + imux + '\n'
            print 'IMU y ' + imuy + '\n'
            print 'IMU z ' + imuz + '\n'
