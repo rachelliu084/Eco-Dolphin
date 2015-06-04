@@ -19,7 +19,7 @@ int Read_Serial_3(char *Data)
 //  Serial.println("Wait");
   while(!Serial3.available()); // wait until receive Data
 //  Serial.println("Buff Gets Data");
-  delay(5);
+  //delay(5);
   while(Serial3.available())               // Don't read unless there you know there is Data
   {
     if(index < IMU_Data_Width)          // One less than the size of the array
@@ -60,33 +60,35 @@ void Data_Converter(char *Data, char *x, char *y, char *z)
 }
 
 
-void IMU_Data(int Type, char *x, char *y, char *z)// x,y,z are the strings of xyz-axis
+void IMU_Data(char *Data, int sw)// x,y,z are the strings of xyz-axis
 {
   char Data_IMU[28];
-  strcpy(x, "");
-  strcpy(y, "");
-  strcpy(z, "");
-  switch(Type)// Type: 1,Accle  2,Magnet  3,Gyro
+  strcpy(Data, "");
+
+  switch(sw)// Type: 1,Accel  2,Magnet  3,Gyro
   {
     case 1:
     {
       Serial3.print(ACCEL);// send command to IMU
       Read_Serial_3(Data_IMU);// wait and read data from IMU
-      Data_Converter(Data_IMU, x, y, z);// separate the string into three strings on xyz-axis
-      break;
+//      Data_Converter(Data_IMU, x, y, z);// separate the string into three strings on xyz-axis
+//      break;
+        strcpy(Data, Data_IMU);
+        break;
     }
-    case 2:
+/*    case 2:
     {
       Serial3.print(MAGN);// send command to IMU
       Read_Serial_3(Data_IMU);// wait and read data from IMU
       Data_Converter(Data_IMU, x, y, z);// separate the string into three strings on xyz-axis
       break;			
-    }
-    case 3:
+    }*/
+    case 2:
     {
       Serial3.print(GYRO);// send command to IMU
       Read_Serial_3(Data_IMU);// wait and read data from IMU
-      Data_Converter(Data_IMU, x, y, z);// separate the string into three strings on xyz-axis
+ //     Data_Converter(Data_IMU, x, y, z);// separate the string into three strings on xyz-axis
+      strcpy(Data, Data_IMU);
       break;			
     }
   }  
