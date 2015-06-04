@@ -1,4 +1,4 @@
-#include "Buzzer.h"
+ #include "Buzzer.h"
 #include "Depth.h"
 #include "Power.h"
 #include "Sonar.h"
@@ -8,17 +8,21 @@
 #include <Servo.h>
 #include <string.h>
 
+
+
 /*---------------------Status Word-----------------------*/
 char Data_Raspberry[Raspberry_Data_Width];
 char Data_Sonar[Sonar_Data_Width];
 char x[8], y[8], z[8];
 int TH[4] = {1500, 1500, 1500 ,1500};
-int cmd = 0
+int cmd = 0;
+char IMU[28];
+//char G[28];
 
 
 /*---------------------Status Word-----------------------*/
 int Th_PWR = 0;
-//My first useless comment
+
 /*---------------------Status Command-----------------------*/
 char Ready[] = "Ready";
 char Th_Set[] = "Th_Set";
@@ -26,29 +30,32 @@ int resetPin = 12;
 
 void setup()
 {
-  digitalWrite(resetPin, HIGH);
   pinMode(resetPin, OUTPUT);
+  digitalWrite(resetPin, HIGH);
   Raspberry_Init();
   Buzzer_Init();
   Power_Init();
   SparkFun_IMU_Init();
-  Sonar_Init();
+//  Sonar_Init();
 //  Thruster_Init();
 }
 
 void loop() {
+
+  char *a;
   
-  
-  strcpy(Data_Raspberry, "");// clear command
   Raspberry_RX(Data_Raspberry);
   
-  cmd = string.toInt(Data_Raspberry);
+  cmd = int(strtod(Data_Raspberry,&a));
+  strcpy(Data_Raspberry, "");// clear command
+
   switch(cmd) {
         case 1: //IMU
-         IMU_Data(IMU)
-         Serial.println(IMU)
+         IMU_Data(IMU, 1);
+          Raspberry_TX(IMU);
          break;
-        
+         Raspberry_TX(Ready);
+
         case 2: //PwrOn
          if(Th_PWR == 0) { Th_PWR = Thruster_PWR(Thruster_ON); Thruster_Init(); Buzzer_3x500ms(); }
          Raspberry_TX(Ready);
@@ -76,9 +83,11 @@ void loop() {
           
         
         break;
-        case 6: //Motion
-          TH[0] = IDLE; TH[1] = IDLE; TH[2] = Thruster3; TH[3] = IDLE;
-          
+        case 6: //Gyro
+        IMU_Data(IMU, 2);
+         Serial.println(IMU);
+         Raspberry_TX(Ready);
+ 
         
         break;
         case 7: //Right
@@ -114,11 +123,15 @@ void loop() {
         break;
         
         case 13: //Reset
-        Raspberry_TX(Reset);
-        soft_restart();
-        break;
+           Raspberry_TX("Reset");
+           digitalWrite (resetPin, LOW);
+           break;
+        default: 
+           Serial.println("Wrong Command");
         }
+        //strcpy(Data_Raspberry, "");// clear command
 
+     }
 
                    
      
