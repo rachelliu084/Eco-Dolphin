@@ -43,7 +43,6 @@ void setup()
 void loop() {
 
   char *a;
-  
   Raspberry_RX(Data_Raspberry);
   
   cmd = int(strtod(Data_Raspberry,&a));
@@ -52,16 +51,15 @@ void loop() {
   switch(cmd) {
         case 1: //IMU
          IMU_Data(IMU, 1);
-          Raspberry_TX(IMU);
+         Raspberry_TX(IMU);
+         //Raspberry_TX(Ready);
          break;
-         Raspberry_TX(Ready);
 
         case 2: //PwrOn
          if(Th_PWR == 0) { Th_PWR = Thruster_PWR(Thruster_ON); Thruster_Init(); Buzzer_3x500ms(); }
          Raspberry_TX(Ready);
          Thruster_Stop(); 
-       
-        break;
+         break;
         
         case 3: //PwrOff
           
@@ -135,5 +133,4 @@ void loop() {
 
                    
      
-
 
