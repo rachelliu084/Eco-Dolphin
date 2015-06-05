@@ -1,4 +1,3 @@
-import serial
 import math
 import time
 #from array import array
@@ -27,7 +26,7 @@ maxcoor =  [99.0,99.0,99.0]
 i = 0
 comma = 0
 fob = open('/home/pi/Eco-Dolphin_lkg_05262015/TestSerial/out.txt','w')
-matlab = open('/home/pi/Eco-Dolphin/ControlCenter_lkg_05222015/output.m','w')
+#matlab = open('/home/pi/Eco-Dolphin/ControlCenter_lkg_06032015/output.m','w')
 prevx = 0
 prevy = 0
 prevz = 0
@@ -373,37 +372,46 @@ while i < 30:
         ser.write(Idle)
         #write to sonar
    else:
-        if response == 'Ready':
+        if response == '':
 
            accel = getIMU(IMU)
            time.sleep(.05)
            print accel
-           #This is the algorithm designed to truncate certain indices of the string to another set of string. 
-           
-           #for k in range(5,len(accel)):
-            #  if (accel[k] == ','):
-
-               #    comma += 1
-              #else:
-                #if(comma == 0):
-                 #  endx = k
-                  # beginy = k+2
-
-                #elif(comma == 1):
-                 #  endy = k
-                  # beginz = k+2
-                #else:
-                 #  endz = k
-	   endx = accel.find(',')
+           endx = accel.find(',')
            imux = accel[5:endx]
-	   beginy = endx+1
-	   endy = accel[beginy::].find(',')+beginy
+           beginy = endx+1
+           endy = accel[beginy::].find(',')+beginy
            imuy = accel[beginy:endy]
-	   beginz = endy+1
+           beginz = endy+1
            imuz = accel[beginz::]
            print 'IMU x ' + imux + '\n'
            print 'IMU y ' + imuy + '\n'
            print 'IMU z ' + imuz + '\n'
+           accelx = float(imux)
+           accely = float(imuy)
+           accelz = float(imuz)
+
+           print 'Accel x ' + accelx + '\n'
+           print 'Accel y ' + accely + '\n'
+           print 'Accel z ' + accelz + '\n'
+
+           diffx = accelx - prevx
+           diffy = accely - prevy
+           diffx = accelz - prevz
+           
+           accelx = prevx
+           accely = prevy
+           accelz = prevz
+
+           deltax = 0.5*diffx*math.pow(difftime,2)
+           deltay = 0.5*diffy*math.pow(difftime,2)
+           deltaz = 0.5*diffz*math.pow(difftime,2)
+
+           print 'deltax ' + deltax + '\n'
+           print 'deltay ' + deltay + '\n'
+           print 'deltaz ' + deltaz + '\n'
+           diffaccel = math.sqrt((math.pow(diffx,2))+(math.pow(diffy,2))+(math.pow(diffz,2)))
+           print 'Distance ' + diffaccel + '\n'
                # matlab.write(accel + '\t')
                # print 'Elasped Time' , difftime
                 #gyro = getIMU(Gyro)
@@ -415,8 +423,8 @@ while i < 30:
 
 
    i+=1
-matlab.write(stringtime)
-matlab.close()
+#matlab.write(stringtime)
+#matlab.close()
 # print 'run', i
 # matlab.write('run ' + '\n')
 # matlab.write('%01d\n' % i)
