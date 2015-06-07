@@ -81,10 +81,11 @@ void loop() {
           
         
         break;
+        
         case 6: //Gyro
         IMU_Data(IMU, 2);
-         Serial.println(IMU);
-         Raspberry_TX(Ready);
+         Raspberry_TX(IMU);
+         //Raspberry_TX(Ready);
  
         
         break;
