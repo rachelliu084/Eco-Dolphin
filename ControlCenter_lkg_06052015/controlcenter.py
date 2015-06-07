@@ -357,6 +357,16 @@ def resurface():
        coor = getcoordinate()
        ser.write(rise)
 
+def avoid():
+    ser.readline()
+    BEDP = math.sqrt((math.pow(BEDx,2))+(math.pow(BEDy,2))+(math.pow(BEDz,2)))
+    while
+        BEDP < tol
+          if currentz < BEDZ
+             ser.write(dive)
+          else
+            ser.write(rise)
+
 #main code begins here
 setBoundary(20.0,20.0,10.0)
 ser.write(PwrOn)
