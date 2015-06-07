@@ -140,6 +140,13 @@ def getIMU(command):
       responsecmd = ser.readline()
 
       return  responsecmd
+      
+def getGyro(command):
+      ser.write(command)
+      #ser.readline()
+      responsecmd = ser.readline()
+
+      return  responsecmd
 
 
 def getcoordinate(response):
