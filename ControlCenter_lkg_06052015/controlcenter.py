@@ -1,5 +1,6 @@
 import math
 import time
+import serial
 #from array import array
 # Global variables defined as follows
 port = '/dev/ttyACM0'
