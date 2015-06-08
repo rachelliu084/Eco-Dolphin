@@ -360,9 +360,8 @@ def resurface():
 def avoid():
     ser.readline()
     BEDP = math.sqrt((math.pow(BEDx,2))+(math.pow(BEDy,2))+(math.pow(BEDz,2)))
-    while
-        BEDP < tol
-          if currentz < BEDZ
+    while BEDP < tol :
+          if currentz < BEDz
              ser.write(dive)
           else
             ser.write(rise)
