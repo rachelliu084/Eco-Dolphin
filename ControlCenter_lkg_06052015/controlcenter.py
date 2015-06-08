@@ -357,13 +357,17 @@ def resurface():
        coor = getcoordinate()
        ser.write(rise)
        
-def proximity (n, me):
-    r = math.sqrt((math.pow((n[0]-me[0]),2))+(math.pow((n[1]-me[1]),2))+(math.pow((n[2]-me[2]),2)))
+def proximity (n, coor):
+    global n
+    global coor
+    r = math.sqrt((math.pow((n[0]-coor[0]),2))+(math.pow((n[1]-coor[1]),2))+(math.pow((n[2]-coor[2]),2)))
        if r < tol
           avoid()
     
 def avoid():
-          if me[2] < n[2]
+    global coor
+    global n
+          if coor[2] < n[2]
              ser.write(dive)
           else
             ser.write(rise)
