@@ -1,6 +1,5 @@
 import math
 import time
-import serial
 #from array import array
 # Global variables defined as follows
 port = '/dev/ttyACM0'
@@ -24,6 +23,7 @@ location = [0,0,0]
 destination = [12,12,5]
 coor =  [0.0,0.0,0.0]
 maxcoor =  [99.0,99.0,99.0]
+angle = 0
 i = 0
 comma = 0
 fob = open('/home/pi/Eco-Dolphin_lkg_05262015/TestSerial/out.txt','w')
@@ -37,9 +37,7 @@ prevaccelz=0
 preanglex = 0
 preangley = 0
 preanglez = 0
-prevdeltax = 0
-prevdeltay = 0
-prevdeltaz = 0
+prevangle = 0
 prevtime = time.clock()
 
 currentx = 0
