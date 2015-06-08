@@ -125,6 +125,25 @@ void loop() {
            Raspberry_TX("Reset");
            digitalWrite (resetPin, LOW);
            break;
+           
+        case 14: //servos neutral
+        //Servo [1] ser.write(1600)
+        //Servo [2] ser.write(1600)
+        
+        break;
+        
+        case 15://servo incline up
+        //Servo [1] ser.write(1800)
+        //Servo [2] ser.write(1800)
+        
+        break;
+        
+        case 16://servo incline down
+        //Servo [1] ser.write(1500)
+        //Servo [2] ser.write(1500)
+        
+        break;
+        
         default: 
            Serial.println("Wrong Command");
         }
