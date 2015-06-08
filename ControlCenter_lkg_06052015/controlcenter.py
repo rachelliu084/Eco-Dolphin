@@ -287,21 +287,21 @@ while i < 30:
            prevaccely = accely
            prevaccelz = accelz
 
-           deltax = 0.5*diffaccelx*math.pow(difftime,2)
-           deltay = 0.5*diffaccely*math.pow(difftime,2)
-           deltaz = 0.5*diffaccelz*math.pow(difftime,2)
+           currentx = 0.5*diffaccelx*math.pow(difftime,2)
+           currenty = 0.5*diffaccely*math.pow(difftime,2)
+           currentz = 0.5*diffaccelz*math.pow(difftime,2)
 
-           print 'x: ' + deltax + '\n'
-           print 'y: ' + deltay + '\n'
-           print 'z: ' + deltaz + '\n'
+           print 'x: ' + currentx + '\n'
+           print 'y: ' + currenty + '\n'
+           print 'z: ' + currentz + '\n'
            
            fob.write('Delta x' + '\n')
-           fob.write('%03d\n' % deltax)
+           fob.write('%03d\n' % currentx)
            fob.write('Delta y' + '\n')
-           fob.write('%03d\n' % deltay)
+           fob.write('%03d\n' % currenty)
            fob.write('Delta z' + '\n')
-           fob.write('%03d\n' % deltaz)
-           diffaccel = math.sqrt((math.pow(diffx,2))+(math.pow(diffy,2))+(math.pow(diffz,2)))
+           fob.write('%03d\n' % currentz)
+           diffaccel = math.sqrt((math.pow(diffaccelx,2))+(math.pow(diffaccely,2))+(math.pow(diffaccelz,2)))
            
            print 'Distance ' + diffaccel + '\n'
            fob.write('Distance' + '\n')
@@ -311,13 +311,13 @@ while i < 30:
                 #gyro = getIMU(Gyro)
                 #print gyro
                 
-           diffx=deltax-prevx
-           diffy=deltay-prevy
-           diffz=deltaz-prevz
+           diffx=currentx-prevx
+           diffy=currenty-prevy
+           diffz=currentz-prevz
            
-           prevx=deltax
-           prevy=deltay
-           prevz=deltaz
+           prevx=currentx
+           prevy=currenty
+           prevz=currentz
         else:
                 print 'Not Ready'
                 response = ser.readline()
