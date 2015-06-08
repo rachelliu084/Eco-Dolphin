@@ -295,11 +295,11 @@ while i < 30:
            print 'y: ' + currenty + '\n'
            print 'z: ' + currentz + '\n'
            
-           fob.write('Delta x' + '\n')
+           fob.write('x: ' + '\n')
            fob.write('%03d\n' % currentx)
-           fob.write('Delta y' + '\n')
+           fob.write('y: ' + '\n')
            fob.write('%03d\n' % currenty)
-           fob.write('Delta z' + '\n')
+           fob.write('z: ' + '\n')
            fob.write('%03d\n' % currentz)
            diffaccel = math.sqrt((math.pow(diffaccelx,2))+(math.pow(diffaccely,2))+(math.pow(diffaccelz,2)))
            
