@@ -276,21 +276,21 @@ while i < 30:
            fob.write('Accel z' + '\n')
            fob.write('%03d\n' % accelz)
            
-           diffx = accelx - prevx
-           diffy = accely - prevy
-           diffx = accelz - prevz
+           diffaccelx = accelx - prevaccelx
+           diffaccely = accely - prevaccely
+           diffaccelx = accelz - prevaccelz
            
-           accelx = prevaccelx
-           accely = prevaccely
-           accelz = prevaccelz
+           prevaccelx = accelx
+           prevaccely = accely
+           prevaccelz = accelz
 
-           deltax = 0.5*diffx*math.pow(difftime,2)
-           deltay = 0.5*diffy*math.pow(difftime,2)
-           deltaz = 0.5*diffz*math.pow(difftime,2)
+           deltax = 0.5*diffaccelx*math.pow(difftime,2)
+           deltay = 0.5*diffaccely*math.pow(difftime,2)
+           deltaz = 0.5*diffaccelz*math.pow(difftime,2)
 
-           print 'deltax ' + deltax + '\n'
-           print 'deltay ' + deltay + '\n'
-           print 'deltaz ' + deltaz + '\n'
+           print 'x: ' + deltax + '\n'
+           print 'y: ' + deltay + '\n'
+           print 'z: ' + deltaz + '\n'
            
            fob.write('Delta x' + '\n')
            fob.write('%03d\n' % deltax)
@@ -307,6 +307,11 @@ while i < 30:
                # print 'Elasped Time' , difftime
                 #gyro = getIMU(Gyro)
                 #print gyro
+                
+           diffx=deltax-prevx
+           diffy=deltay-prevy
+           diffz=deltaz-prevz
+           
            prevx=deltax
            prevy=deltay
            prevz=deltaz
