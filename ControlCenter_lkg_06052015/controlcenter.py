@@ -411,7 +411,14 @@ while i < 30:
            print 'Accel x ' + accelx + '\n'
            print 'Accel y ' + accely + '\n'
            print 'Accel z ' + accelz + '\n'
-
+           
+           fob.write('Accel x' + '\n')
+           fob.write('%03d\n' % accelx)
+           fob.write('Accel y' + '\n')
+           fob.write('%03d\n' % accely)
+           fob.write('Accel z' + '\n')
+           fob.write('%03d\n' % accelz)
+           
            diffx = accelx - prevx
            diffy = accely - prevy
            diffx = accelz - prevz
@@ -427,8 +434,18 @@ while i < 30:
            print 'deltax ' + deltax + '\n'
            print 'deltay ' + deltay + '\n'
            print 'deltaz ' + deltaz + '\n'
+           
+           fob.write('Delta x' + '\n')
+           fob.write('%03d\n' % deltax)
+           fob.write('Delta y' + '\n')
+           fob.write('%03d\n' % deltay)
+           fob.write('Delta z' + '\n')
+           fob.write('%03d\n' % deltaz)
            diffaccel = math.sqrt((math.pow(diffx,2))+(math.pow(diffy,2))+(math.pow(diffz,2)))
+           
            print 'Distance ' + diffaccel + '\n'
+           fob.write('Distance' + '\n')
+           fob.write('%03d\n' % diffaccel)
                # matlab.write(accel + '\t')
                # print 'Elasped Time' , difftime
                 #gyro = getIMU(Gyro)
