@@ -357,17 +357,13 @@ def resurface():
        coor = getcoordinate()
        ser.write(rise)
        
-def proximity (n, coor):
-    global n
-    global coor
-    r = math.sqrt((math.pow((n[0]-coor[0]),2))+(math.pow((n[1]-coor[1]),2))+(math.pow((n[2]-coor[2]),2)))
+def proximity (n, me):
+    r = math.sqrt((math.pow((n[0]-me[0]),2))+(math.pow((n[1]-me[1]),2))+(math.pow((n[2]-me[2]),2)))
        if r < tol
           avoid()
     
 def avoid():
-    global coor
-    global n
-          if coor[2] < n[2]
+          if me[2] < n[2]
              ser.write(dive)
           else
             ser.write(rise)
@@ -428,9 +424,9 @@ while i < 30:
            diffy = accely - prevy
            diffx = accelz - prevz
            
-           accelx = prevx
-           accely = prevy
-           accelz = prevz
+           accelx = prevaccelx
+           accely = prevaccely
+           accelz = prevaccelz
 
            deltax = 0.5*diffx*math.pow(difftime,2)
            deltay = 0.5*diffy*math.pow(difftime,2)
@@ -455,7 +451,9 @@ while i < 30:
                # print 'Elasped Time' , difftime
                 #gyro = getIMU(Gyro)
                 #print gyro
-
+           prevx=deltax
+           prevy=deltay
+           prevz=deltaz
         else:
                 print 'Not Ready'
                 response = ser.readline()
