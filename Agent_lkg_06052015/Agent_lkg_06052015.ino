@@ -30,8 +30,6 @@ int resetPin = 12;
 
 void setup()
 {
-  pinMode(resetPin, OUTPUT);
-  digitalWrite(resetPin, HIGH);
   Raspberry_Init();
   Buzzer_Init();
   Power_Init();
