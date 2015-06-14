@@ -131,7 +131,7 @@ void loop() {
            Thruster_Stop();
         }
         //strcpy(Data_Raspberry, "");// clear command
-        Thruster_Stop();
+        //Thruster_Stop();
      }
 
                    
