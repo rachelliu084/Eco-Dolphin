@@ -40,6 +40,7 @@ tolerance = 2.0
 summ = [0,0,0]
 diff = [0,0,0]
 diffaccel = 0.0
+#Cp = measure battery
 
 #loop counters
 i = 0 #for file population (maximum: 100)
@@ -230,6 +231,38 @@ def avoid():
           else
             ser.write(rise)
 
+def tolI():
+	global currentx
+    global currenty
+    global currentz
+    #getCurrent()
+	#goaldistance = math.sqrt((math.pow((destinationx-currentx),2))+(math.pow((destinationy-currenty),2))+(math.pow((destinationz-currentz),2)))
+	#goaltime = (current speed)/goaldistance
+	#Itime = (Cp/math.pow(get.Current(),1.333))
+	#tolIt = Itime- goaltime
+	
+def chkabort():
+	#getCurrent()
+	#tolI()
+	#print getCurrent()
+	if
+	   #tolIt < 0
+	   #resurface()
+	   #set destination[0,0,0]
+	   #print 'abort'
+	else
+	   #continue
+	   
+def chkoverride():
+	#ser.readline()
+	if 
+	   #ser.readline() = 'override'
+	   #resurface()
+	   #set destination[0,0,0]
+	   #print 'override'
+	else
+	   #continue
+	   
 #main code begins here
 setBoundary(bounds)
 response = cmdAgent(PwrOn)
