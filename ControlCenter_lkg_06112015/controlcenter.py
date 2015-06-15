@@ -233,9 +233,9 @@ def avoid():
 
 def tolI():
 	global currentx
-    global currenty
-    global currentz
-    #getCurrent()
+	global currenty
+	global currentz
+	#getCurrent()
 	#goaldistance = math.sqrt((math.pow((destinationx-currentx),2))+(math.pow((destinationy-currenty),2))+(math.pow((destinationz-currentz),2)))
 	#goaltime = (current speed)/goaldistance
 	#Itime = (Cp/math.pow(get.Current(),1.333))
@@ -246,22 +246,22 @@ def chkabort():
 	#tolI()
 	#print getCurrent()
 	if
-	   #tolIt < 0
-	   #resurface()
-	   #set destination[0,0,0]
-	   #print 'abort'
+		#tolIt < 0
+		#resurface()
+		#set destination[0,0,0]
+		#print 'abort'
 	else
-	   #continue
+		#continue
 	   
 def chkoverride():
 	#ser.readline()
 	if 
-	   #ser.readline() = 'override'
-	   #resurface()
-	   #set destination[0,0,0]
-	   #print 'override'
+		#ser.readline() = 'override'
+		#resurface()
+		#set destination[0,0,0]
+		#print 'override'
 	else
-	   #continue
+		#continue
 	   
 #main code begins here
 setBoundary(bounds)
