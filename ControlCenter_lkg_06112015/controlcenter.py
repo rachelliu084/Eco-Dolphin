@@ -24,6 +24,7 @@ location = [0,0,0]
 destination = [12,12,5]
 coor =  [0.0,0.0,0.0]
 maxcoor =  [99.0,99.0,99.0]
+#Cp = measure battery
 i = 0
 comma = 0
 fob = open('/home/pi/Eco-Dolphin_lkg_05262015/TestSerial/out.txt','w')
@@ -199,6 +200,39 @@ def resurface():
      global tol
      global coor
 
+def tolC():
+	global currentx
+        global currenty
+        global currentz
+        #getCurrent()
+	#goald = math.sqrt((math.pow((destinationx-currentx),2))+(math.pow((destinationy-currenty),2))+(math.pow((destinationz-currentz),2)))
+	#goaltime = (current speed)/goald
+	#Itime = (Cp/math.pow(get.Current(),1.333))
+	#tolCt = Itime- goaltime
+	
+def chkabort():
+	#getCurrent()
+	#tolC()
+	#print getCurrent()
+	if
+	   #tolCt < 0
+	   #resurface()
+	   #set destination[0,0,0]
+	   #print 'abort'
+	else
+	   #continue
+	   
+def chkovride():
+	#ser.readline()
+	if 
+	   #ser.readline = 'override'
+	   #resurface()
+	   #set destination[0,0,0]
+	   #print 'override'
+	else
+	   #continue
+	
+	
      while coor[2] > tol:
        coor = getcoordinate()
        ser.write(rise)
@@ -237,6 +271,8 @@ while i < 30:
            imuy = accel[beginy:endy]
 	   beginz = endy+1
            imuz = accel[beginz::]
+           #chkabort()
+           #chkovride()
            ser.write(Left)
            ser.readline()
         else:
