@@ -5,7 +5,7 @@ import time
 
 # Global variables defined as follows
 fob = open('/home/pi/Eco-Dolphin/accel.txt','w')
-fob2 = open('/home/pi/Eco-Dolphin/location.txt','w')
+fob2 = open('/home/pi/Eco-Dolphin/ylocation.txt','w')
 port = '/dev/ttyACM0'
 baud = 57600
 response = ''
@@ -47,6 +47,7 @@ diffgyro = [0.0,0.0,0.0]
 #Cp = measure battery
 
 #loop counters
+
 i = 0 #for file population (maximum: 100)
 n = 0 #for IMU calibration (average acceleration)
 
@@ -86,7 +87,8 @@ def getPosition():
     global prevaccel
     global diffaccel
     global response
-        #get the acceleration and separate string
+	
+    #get the acceleration and separate string
     response = cmdAgent(Accel)
     print response
     accelstring = separateString(response)
@@ -118,15 +120,19 @@ def getPosition():
         location[0] = 0.5*diffaccel[0]*math.pow(difftime,2)
         location[1] = 0.5*diffaccel[1]*math.pow(difftime,2)
         location[2] = 0.5*diffaccel[2]*math.pow(difftime,2)
+    #the vector summ shows the position
+        summ[0] = location[0] + prevlocation[0]
+		summ[1] = location[1] + prevlocation[1]
+        summ[2] = location[2] + prevlocation[2]
 
 
         #publish location and elapsed time to file server
         fob2.write('Place/Time: ')
-        fob2.write('%03d, ' % location[0])
-        fob2.write('%03d, ' % location[1])
-        fob2.write('%03d, ' % location[2])
+        fob2.write('%03d, ' % summ[0])
+        fob2.write('%03d, ' % summ[1])
+        fob2.write('%03d, ' % summ[2])
         fob2.write('%03d\n' % elapsetime)
-        return location
+        return summ
 
 def getHeading():
     global diffgyro
