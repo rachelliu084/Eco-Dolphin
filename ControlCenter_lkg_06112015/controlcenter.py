@@ -288,15 +288,8 @@ def tolI():
         #else
            #continue
 
-#def chkoverride():
-        #ser.readline()
-        #if
-           #ser.readline() = 'override'
-           #resurface()
-           #set destination[0,0,0]
-           #print 'override'
-        #else
-           #continue
+
+        
 
 #main code begins here
 setBoundary(bounds[0],bounds[1],bounds[2])
@@ -340,6 +333,11 @@ while i < 30:
            if n>15:#average the acceleration
             checkPoint()
 #            toHeading()
+		#elif response == 'override':
+			ser.write('override')
+			#target = separateString(response)
+			#destination = target
+			
         else:#add Ready, Abort, Override option
                 print 'Not Ready'
                 response = cmdAgent(PwrOn)

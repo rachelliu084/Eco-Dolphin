@@ -41,6 +41,10 @@ void setup()
 }
 
 void loop() {
+  
+//interput
+  //Raspbery_TX(override);
+  //Raspberry_RX(Data_Raspberry)
 
   char *a;
   Thruster_Speed(TH);
@@ -129,6 +133,12 @@ void loop() {
            Serial.println("Wrong Command");
            Thruster_Speed(TH);
            Thruster_Stop();
+           
+        case 14: //override
+        Raspberry_TX(sonar)
+        
+        break;
+        
         }
         //strcpy(Data_Raspberry, "");// clear command
         //Thruster_Stop();
