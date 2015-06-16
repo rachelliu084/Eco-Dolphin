@@ -1,0 +1,39 @@
+To setup inotools, copy and paste all of the following commands:
+
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install avr-libc libftdi1 avrdude librxtx-java openjdk-6-jre
+mkdir ~/arduino
+cd ~/arduino
+wget http://arduino.googlecode.com/files/arduino-1.0.5-linux64.tgz
+tar xfz arduino-1.0.5-linux64.tgz
+cd ~/arduino/arduino-1.0.5/lib/
+ln -sf /usr/lib/jni/librxtxSerial.so librxtxSerial.so
+ln -sf /usr/share/java/RXTXcomm.jar RXTXcomm.jar
+cd ~/arduino/arduino-1.0.5/hardware/tools/
+ln -sf /usr/bin/avrdude avrdude
+ln -sf /etc/avrdude.conf avrdude.conf
+cd ~/arduino/arduino-1.0.5/hardware/tools/avr/bin
+ln -sf /usr/lib/avr/bin/ar avr-ar
+ln -sf /usr/lib/avr/bin/as avr-as
+ln -sf /usr/lib/avr/bin/ld avr-ld
+ln -sf /usr/lib/avr/bin/nm avr-nm
+ln -sf /usr/lib/avr/bin/objcopy avr-objcopy
+ln -sf /usr/lib/avr/bin/objdump avr-objdump
+ln -sf /usr/lib/avr/bin/ranlib avr-ranlib
+ln -sf /usr/lib/avr/bin/strip avr-strip
+ln -sf /usr/bin/avr-cpp avr-cpp
+ln -sf /usr/bin/avr-g++ avr-g++
+ln -sf /usr/bin/avr-gcc avr-gcc
+rm -rf ~/arduino/arduino-1.0.5/hardware/tools/avr/bin.gcc
+cd
+sudo apt-get install python
+wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py -O - | sudo python
+mkdir ~/git/amperka
+cd ~/git/amperka
+git clone git://github.com/amperka/ino.git
+sudo easy_install ino
+sudo ln -s ~/arduino/arduino-1.0.5 /usr/share/arduino
+
+Once you’re done head on to the inotool Quick start guide to compile your first sketch.
+

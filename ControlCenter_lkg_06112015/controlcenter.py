@@ -116,7 +116,7 @@ def getPosition():
     #assign previous acceleration to the current acceleration
         prevaccel = acceleration
 
-    #establish current location
+    #establish current displacement
         location[0] = 0.5*diffaccel[0]*math.pow(difftime,2)
         location[1] = 0.5*diffaccel[1]*math.pow(difftime,2)
         location[2] = 0.5*diffaccel[2]*math.pow(difftime,2)
@@ -291,11 +291,12 @@ def tolI():
 
         
 
-#main code begins here
+##############################main code begins here#######################################
 setBoundary(bounds[0],bounds[1],bounds[2])
 response = cmdAgent(PwrOn)
 print response
 difftime = time.clock() + prevtime
+prevtime = difftime
 #stringtime = str(difftime)
 #local variables
 endx = 0
