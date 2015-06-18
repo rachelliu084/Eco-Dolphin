@@ -1,3 +1,4 @@
+
 #include "Buzzer.h"
 #include "Depth.h"
 #include "Power.h"
@@ -38,6 +39,10 @@ void setup()
   SparkFun_IMU_Init();
   Sonar_Init();
   Thruster_Init();
+  // initialize serial:
+  Serial.begin(9600);
+  // reserve 200 bytes for the inputString:
+  inputString.reserve(200);
 }
 
 void loop() {
@@ -45,6 +50,13 @@ void loop() {
 //interput
   //Raspbery_TX(override);
   //Raspberry_RX(Data_Raspberry)
+  
+  //if (stringComplete) {
+    //Serial.println(inputString); 
+    // clear the string:
+    //inputString = "";
+    //stringComplete = false;
+  }
 
   char *a;
   Thruster_Speed(TH);
@@ -52,6 +64,21 @@ void loop() {
   
   cmd = int(strtod(Data_Raspberry,&a));
   strcpy(Data_Raspberry, "");// clear command
+
+void serialEvent() {
+  while (Serial.available()) {
+    // get the new byte:
+    char inChar = (char)Serial.read(); 
+    // add it to the inputString:
+    inputString += inChar;
+    // if the incoming character is a newline, set a flag
+    // so the main loop can do something about it:
+    if (inChar == '\n') {
+      stringComplete = true;
+    } 
+  }
+}
+
 
   switch(cmd) {
         case 1: //IMU
