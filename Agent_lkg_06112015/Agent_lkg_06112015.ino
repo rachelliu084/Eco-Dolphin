@@ -36,7 +36,7 @@ void setup()
   Buzzer_Init();
   Power_Init();
   SparkFun_IMU_Init();
-//  Sonar_Init();
+  Sonar_Init();
   Thruster_Init();
 }
 
