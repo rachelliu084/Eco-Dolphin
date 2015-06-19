@@ -27,6 +27,8 @@ int Th_PWR = 0;
 char Ready[] = "Ready";
 char Th_Set[] = "Th_Set";
 int resetPin = 12;
+String inputString = "";         // a string to hold incoming data
+boolean stringComplete = false;  // whether the string is complete
 
 void setup()
 {
@@ -38,6 +40,10 @@ void setup()
   SparkFun_IMU_Init();
 //  Sonar_Init();
   Thruster_Init();
+   // initialize serial:
+  Serial.begin(9600);
+  // reserve 200 bytes for the inputString:
+  inputString.reserve(200);
 }
 
 void loop() {
@@ -48,6 +54,12 @@ void loop() {
   
   cmd = int(strtod(Data_Raspberry,&a));
   strcpy(Data_Raspberry, "");// clear command
+  
+  if (stringComplete) {
+    Serial.println(inputString); 
+    // clear the string:
+    inputString = "";
+    stringComplete = false;
 
   switch(cmd) {
         case 1: //IMU
@@ -134,6 +146,19 @@ void loop() {
         //Thruster_Stop();
      }
 
+void serialEvent() {
+  while (Serial.available()) {
+    // get the new byte:
+    char inChar = (char)Serial.read(); 
+    // add it to the inputString:
+    inputString += inChar;
+    // if the incoming character is a newline, set a flag
+    // so the main loop can do something about it:
+    if (inChar == '\n') {
+      stringComplete = true;
+    } 
+  }
+}
                    
      
 
