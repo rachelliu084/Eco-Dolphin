@@ -37,13 +37,14 @@ void setup()
   Power_Init();
   SparkFun_IMU_Init();
   Thruster_Init();
+  Th_PWR = Thruster_PWR(Thruster_OFF);
   //Sonar_Init();
 }
 
 void loop() {
 
   char *a;
-  Thruster_Speed(TH);
+  //Thruster_Speed(TH);
   Raspberry_RX(Data_Raspberry);
 
   cmd = int(strtod(Data_Raspberry,&a));
