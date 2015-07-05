@@ -156,6 +156,8 @@ void serialEvent() {
     // so the main loop can do something about it:
     if (inChar == '\n') {
       stringComplete = true;
+      Raspbery_TX("Interrupt")
+      //Serial.print(Interrupt_data)
     } 
   }
 }

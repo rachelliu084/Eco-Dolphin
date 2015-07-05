@@ -368,6 +368,11 @@ while 1:
             #checkPoint()
 #            toHeading()
         else:#add Ready, Abort, Override option
+			if response == 'Interrupt'
+				#chkoverride()
+				#chkabort()
+				
+		else:	
                 print 'Not Ready'
                 response = cmdAgent(PwrOn)
 
