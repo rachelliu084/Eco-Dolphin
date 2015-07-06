@@ -96,43 +96,10 @@ def separateString(string):
     values = [imux, imuy, imuz]
     return values
 
-def getGraphAccel(xgraphaccel,ygraphaccel,zgraphaccel):
-     trace1 = Scatter3d(
-       x = xgraphaccel,
-       y = ygraphaccel,
-       z = zgraphaccel,
-        mode='lines',
-        marker=Marker(
-            color='#1f77b4',
-            size=12,
-            symbol='circle',
-            line=Line(
-                color='rgb(0,0,0)',
-                width=0
-            )
-        ),
-        line=Line(
-            color='rgb(50,0,0)',
-            width=1
-        )
-    )
-  
-    data = Data([trace1])
-    layout = Layout(
-              autosize=False,
-              width=500,
-              height=500,
-              margin=Margin(
-              l=0,
-              r=0,
-              b=0,
-              t=65
-            )
-        )
-    fig = Figure(data=data, layout=layout)
-    plot_url = py.plot(fig, filename='Eco-Dolphin1Graph3DAcceleration')
 
-def getPosGraph(xgraphpos,ygraphpos,zgraphpos):
+
+def getPosGraph(xgraphpos,ygraphpos,zgraphpos,p):
+  s = str(p)
   trace2 = Scatter3d(
        x = xgraphpos,
        y = ygraphpos,
@@ -166,7 +133,7 @@ def getPosGraph(xgraphpos,ygraphpos,zgraphpos):
             )
         )
     fig = Figure(data=data, layout=layout)
-    plot_url = py.plot(fig, filename='Eco-Dolphin1Graph3DPosition')
+    plot_url = py.plot(fig, filename='Eco-Dolphin1Graph3DPosition ' + p)
 
 def getPosition():
     global acceleration
@@ -210,9 +177,8 @@ def getPosition():
         diffaccel[2] = acceleration[2] - prevaccel[2]
         magaccel = math.sqrt((math.pow(diffaccel[0],2))+(math.pow(diffaccel[1],2))+(math.pow(diffaccel[2],2)))
         
-        xgraphaccel.append(diffaccel[0])
-        ygraphaccel.append(diffaccel[1])
-        xgraphaccel.append(diffaccel[2])
+        #After computin the accel, the list will add the following acceleration 
+        
 
         
   
@@ -240,6 +206,8 @@ def getPosition():
         fob2.write('%03d, ' % summ[1])
         fob2.write('%03d, ' % summ[2])
         fob2.write('%03d\n' % elapsetime)
+
+        #Add the following position to each list 
         xgraphpos.append(summ[0])
         ygraphpos.append(summ[1])
         xgraphpos.append(summ[2])
@@ -485,8 +453,11 @@ while i < 1:
         else:#add Ready, Abort, Override option
                 print 'Not Ready'
                 response = cmdAgent(PwrOn)
-   
+   if(i == 100):
+       p = i / 100
+       getPosGraph(xgraphpos,ygraphpos,zgraphpos, p)
+
 
    i+=1
-getGraphAccel(xgraphaccel,ygraphaccel,zgraphaccel)
-getPosGraph(xgraphpos,ygraphpos,zgraphpos)
+#When the loop ends,the functions 'getGraphAccel' and 'getPosGraph' will then take in the array lists 
+#from the other functions and then creat a graph from these data.    
