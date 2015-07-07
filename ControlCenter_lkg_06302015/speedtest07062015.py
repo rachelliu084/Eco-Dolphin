@@ -49,9 +49,7 @@ xgraphpos = list()
 ygraphpos = list()
 zgraphpos = list()
 
-xgraphaccel = list()
-ygraphaccel = list()
-zgraphaccel = list() 
+
 
 
 
@@ -121,7 +119,7 @@ def getPosGraph(xgraphpos,ygraphpos,zgraphpos,p):
     )
   
     data = Data([trace1])
-    layout = Layout(
+    layout = Layout( 
               autosize=False,
               width=500,
               height=500,
@@ -392,7 +390,7 @@ endy = 0
 beginz = 0
 endz = 0
 #functional loop
-while i < 1:
+while i < 6:
    elapsetime+=time.clock()
    #check if destination has been reached
    if (location == destination) or (location > bounds):
