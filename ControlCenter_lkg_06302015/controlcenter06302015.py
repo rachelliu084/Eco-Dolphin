@@ -286,7 +286,7 @@ def tolI():
         #Itime = (Cp/math.pow(get.Current(),1.333))
         #tolIt = Itime- goaltime
 
-#def chkabort():
+def chkabort():
         #getCurrent()
         #tolI()
         #print getCurrent()
@@ -298,10 +298,7 @@ def tolI():
         #else
            #continue
 
-#def chkoverride():
-        #ser.readline()
-        #if
-           #ser.readline() = 'override'
+def chkoverride():
            #resurface()
            #set destination[0,0,0]
            #print 'override'
@@ -370,7 +367,6 @@ while 1:
         else:#add Ready, Abort, Override option
 			if response == 'Interrupt'
 				#chkoverride()
-				#chkabort()
 				
 		else:	
                 print 'Not Ready'
