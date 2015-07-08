@@ -81,9 +81,8 @@ while 1:
            #time.sleep(3)
 
         elif response == 'Interrupt':#add Ready, Abort, Override option
-				   #chkoverride()
-				
-	      else:	
+	    #chkoverride()
+        else:	
            print 'Not Ready'
            response = cmdAgent(PwrOn)
 
