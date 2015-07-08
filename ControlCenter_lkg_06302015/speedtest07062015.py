@@ -193,7 +193,17 @@ def getPosition():
         summ[1] += location[1] + prevlocation[1]
         summ[2] += location[2] + prevlocation[2]
         print summ
-
+    
+    # Set up tolerance for how close the dolphins can be
+        #tol = 2 # Arbitrary
+        #import values from other dolphin
+        #import xblue,yblue,zblue
+        #if abs(summ[0]- xblue) < tol or abs(summ[1]- yblue) < tol or abs(summ[2]- zblue) < tol:
+         #   ser.write(Dive)
+         # Dive can simply add to the z component? Is it known by how much
+         # summ[2] = summ[2]+dive_value
+      
+         
     #assign previous location to current location
         prevlocation = location
 
