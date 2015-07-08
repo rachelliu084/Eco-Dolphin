@@ -62,80 +62,50 @@ void loop() {
         case 2: //PwrOn
          if(Th_PWR == 0) { Th_PWR = Thruster_PWR(Thruster_ON); Thruster_Init(); Buzzer_3x500ms(); }
          Raspberry_TX(Ready);
-
-         //Thruster_Stop();
-
-        break;
+         break;
 
         case 3: //PwrOff
-
-            Th_PWR = Thruster_PWR(Thruster_OFF);
-
-        break;
+         Th_PWR = Thruster_PWR(Thruster_OFF);
+         break;
 
         case 4: //Idle
-          Thruster_Stop();
+         Thruster_Stop();
+         break;
 
-        break;
-
-        case 5:  //right
-          TH[0] = Thruster1; TH[1] = IDLE; TH[2] = IDLE; TH[3] = IDLE;
-          Thruster_Speed(TH);
-
-        break;
-        case 6: // left
-
-           TH[0] = IDLE; TH[1] = Thruster2; TH[2] = IDLE; TH[3] = IDLE;
-           Thruster_Speed(TH);
-           // IMU_Data(IMU, 2);
-           // Serial.println(IMU);
-           // Thruster_Speed(TH);
-
-        break;
-        case 7: //rise
-          TH[0] = IDLE; TH[1] = IDLE; TH[2] = Thruster3; TH[3] = Thruster4;
-          Thruster_Speed(TH);
-
-        break;
-        case 8:  //dive
-          TH[0] = IDLE; TH[1] = IDLE; TH[2] = Reverse1; TH[3] = Reverse2;
-          Thruster_Speed(TH);
-
-        break;
+        case 5:  //Right
+         TH[0] = Thruster1; TH[1] = IDLE; TH[2] = IDLE; TH[3] = IDLE;
+         Thruster_Speed(TH);
+         break;
+         
+        case 6: // Left
+         TH[0] = IDLE; TH[1] = Thruster2; TH[2] = IDLE; TH[3] = IDLE;
+         Thruster_Speed(TH);
+         break;
+         
+        case 7: //Rise
+         TH[0] = IDLE; TH[1] = IDLE; TH[2] = Thruster3; TH[3] = Thruster4;
+         Thruster_Speed(TH);
+         break;
+         
+        case 8:  //Dive
+         TH[0] = IDLE; TH[1] = IDLE; TH[2] = Reverse1; TH[3] = Reverse2;
+         Thruster_Speed(TH);
+         break;
+         
         case 9: //Fwd
           TH[0] = Thruster1; TH[1] = Thruster2; TH[2] = IDLE; TH[3] = IDLE;
           Thruster_Speed(TH);
         break;
 
         case 0:  // Back
-          TH[0] = Reverse1; TH[1] = Reverse2; TH[2] = IDLE; TH[3] = IDLE;
-          Thruster_Speed(TH);
-        break;
-        // Thruster_Setting(Data_Raspberry, TH);
+         TH[0] = Reverse1; TH[1] = Reverse2; TH[2] = IDLE; TH[3] = IDLE;
+         Thruster_Speed(TH);
+         break;
 
-        case 11: //Fwd
-
-        TH[0] = Thruster1; TH[1] = IDLE; TH[2] = IDLE; TH[3] = IDLE;
-        Thruster_Speed(TH);
-        break;
-
-        case 12: //Back
-
-        TH[0] = IDLE; TH[1] = IDLE; TH[2] = IDLE; TH[3] = IDLE;
-        Thruster_Speed(TH);
-        break;
-
-        case 13: //Reset
-           //Raspberry_TX("Reset");
-           digitalWrite (resetPin, LOW);
-           break;
         default:
            Serial.println("Wrong Command");
-           Thruster_Speed(TH);
            Thruster_Stop();
         }
-        //strcpy(Data_Raspberry, "");// clear command
-        //Thruster_Stop();
      }
 
 
