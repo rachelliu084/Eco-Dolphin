@@ -6,7 +6,7 @@
 
 #define MaxTry 3
 #define Sonar_Data_Width 9  //include '\0' which is the null termination character
-#define Soanr_Baud_Rate 57600
+#define Sonar_Baud_Rate 4800
 
 int Read_Serial_1(char *Data);
 

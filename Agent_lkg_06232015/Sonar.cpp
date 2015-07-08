@@ -1,3 +1,5 @@
+
+
 #include "Sonar.h"
 #include <string.h>
 
@@ -36,9 +38,8 @@ int Read_Serial_1(char *Data)
 
 int Sonar_Init()
 {
-  Serial1.begin(Soanr_Baud_Rate);
+  Serial1.begin(Sonar_Baud_Rate);
   delay(100);
-  Serial.println("Initialize Sonar ...");
   /*--------------- Enter Control Mode----------------------*/
   Serial1.write("###");
   delay(100);
