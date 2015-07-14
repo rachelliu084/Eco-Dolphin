@@ -46,7 +46,7 @@ void loop() {
   char *a;
   //Thruster_Speed(TH);
   Raspberry_RX(Data_Raspberry);
-
+int inByte = Serial.read();
   cmd = int(strtod(Data_Raspberry,&a));
   strcpy(Data_Raspberry, "");// clear command
 
@@ -126,10 +126,29 @@ void loop() {
            //Raspberry_TX("Reset");
            digitalWrite (resetPin, LOW);
            break;
+   
         default:
            Serial.println("Wrong Command");
            Thruster_Speed(TH);
            Thruster_Stop();
+    
+
+    switch (inByte) {
+    case 'a':    
+      digitalWrite(2, HIGH);
+      break;
+    case 'b':    
+      digitalWrite(3, HIGH);
+      break;
+    case 'c':    
+      digitalWrite(4, HIGH);
+      break;
+    case 'd':    
+      digitalWrite(5, HIGH);
+      break;
+    case 'e':    
+      digitalWrite(6, HIGH);
+      break;
         }
         //strcpy(Data_Raspberry, "");// clear command
         //Thruster_Stop();
