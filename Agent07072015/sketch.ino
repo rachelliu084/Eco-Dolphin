@@ -106,6 +106,26 @@ void loop() {
            Serial.println("Wrong Command");
            Thruster_Stop();
         }
+          switch (inByte) {
+             case 'a':  //  Right
+              digitalWrite(2, HIGH);
+              break;
+            case 'b':    // left
+              digitalWrite(3, HIGH);
+              break;
+            case 'c':    // rise
+              digitalWrite(4, HIGH);
+              break;
+            case 'd':    // Forward
+              digitalWrite(5, HIGH);
+              break;
+            case 'e':    // Back
+              digitalWrite(6, HIGH);
+              break;
+            case 'f': // Dive
+              digitalWrite(7,HIGH);
+              break;
+        }
      }
 
 
