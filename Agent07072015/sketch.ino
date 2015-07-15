@@ -49,7 +49,7 @@ void loop() {
   char *a;
   //Thruster_Speed(TH);
   Raspberry_RX(Data_Raspberry);
-  int inByte = Serial.read();
+  char inByte = Serial.read();
   cmd = int(strtod(Data_Raspberry,&a));
   strcpy(Data_Raspberry, "");// clear command
 
