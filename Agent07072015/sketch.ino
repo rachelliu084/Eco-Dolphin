@@ -52,7 +52,9 @@ void loop() {
   char inByte = Serial.read();
   cmd = int(strtod(Data_Raspberry,&a));
   strcpy(Data_Raspberry, "");// clear command
-
+if serial.available == "" { //If Something is in the buffer
+  serialEvent();
+}
   switch(cmd) {
         case 1: //IMU
          IMU_Data(IMU, 1);
@@ -106,7 +108,22 @@ void loop() {
            Serial.println("Wrong Command");
            Thruster_Stop();
         }
-          switch (inByte) {
+        
+  void serialEvent() {
+  while (Serial.available()) {
+    // get the new byte:
+    char inChar = (char)Serial.read(); 
+    // add it to the inputString:
+    inByte += inChar;
+    // if the incoming character is a newline, set a flag
+    // so the main loop can do something about it:
+    if (inChar == '\n') {
+      stringComplete = true;
+      Raspbery_TX("Interrupt")
+      //Serial.print(Interrupt_data)
+    } 
+     }
+       switch (inByte) {
              case 'a':  //  Right
               digitalWrite(2, HIGH);
               break;
@@ -126,21 +143,11 @@ void loop() {
               digitalWrite(7,HIGH);
               break;
         }
-  void serialEvent() {
-  while (Serial.available()) {
-    // get the new byte:
-    char inChar = (char)Serial.read(); 
-    // add it to the inputString:
-    inputString += inChar;
-    // if the incoming character is a newline, set a flag
-    // so the main loop can do something about it:
-    if (inChar == '\n') {
-      stringComplete = true;
-      Raspbery_TX("Interrupt")
-      //Serial.print(Interrupt_data)
-    } 
-     }
-
+     
+     
+     
+     
+  }
 
 
 
