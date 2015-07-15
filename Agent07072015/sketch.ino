@@ -126,6 +126,19 @@ void loop() {
               digitalWrite(7,HIGH);
               break;
         }
+  void serialEvent() {
+  while (Serial.available()) {
+    // get the new byte:
+    char inChar = (char)Serial.read(); 
+    // add it to the inputString:
+    inputString += inChar;
+    // if the incoming character is a newline, set a flag
+    // so the main loop can do something about it:
+    if (inChar == '\n') {
+      stringComplete = true;
+      Raspbery_TX("Interrupt")
+      //Serial.print(Interrupt_data)
+    } 
      }
 
 
