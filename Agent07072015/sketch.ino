@@ -125,22 +125,28 @@ if serial.available == "" { //If Something is in the buffer
      }
        switch (inByte) {
              case 'a':  //  Right
-              digitalWrite(2, HIGH);
+              TH[0] = Thruster1; TH[1] = IDLE; TH[2] = IDLE; TH[3] = IDLE;
+         Thruster_Speed(TH);
               break;
             case 'b':    // left
-              digitalWrite(3, HIGH);
+              TH[0] = IDLE; TH[1] = Thruster2; TH[2] = IDLE; TH[3] = IDLE;
+         Thruster_Speed(TH);
               break;
             case 'c':    // rise
-              digitalWrite(4, HIGH);
+              TH[0] = IDLE; TH[1] = IDLE; TH[2] = Thruster3; TH[3] = Thruster4;
+         Thruster_Speed(TH);
               break;
             case 'd':    // Forward
-              digitalWrite(5, HIGH);
+              TH[0] = Thruster1; TH[1] = Thruster2; TH[2] = IDLE; TH[3] = IDLE;
+          Thruster_Speed(TH);
               break;
             case 'e':    // Back
-              digitalWrite(6, HIGH);
+              TH[0] = Reverse1; TH[1] = Reverse2; TH[2] = IDLE; TH[3] = IDLE;
+         Thruster_Speed(TH);
               break;
             case 'f': // Dive
-              digitalWrite(7,HIGH);
+              TH[0] = IDLE; TH[1] = IDLE; TH[2] = Reverse1; TH[3] = Reverse2;
+         Thruster_Speed(TH);
               break;
         }
      
