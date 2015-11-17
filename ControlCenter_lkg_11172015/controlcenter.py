@@ -13,7 +13,7 @@ port = '/dev/ttyACM0'
 baud = 4800
 response = ""
 timeOut = 1
-ser = serial.Serial(port, baud, timeOut)
+ser = serial.Serial(port, baud, timeout=timeOut)
 ser.open()
 
 #commands to send to agent
