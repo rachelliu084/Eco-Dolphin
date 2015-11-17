@@ -18,6 +18,7 @@ ser.open()
 #initialize variables
 response = ""
 timeOut = 1
+hoverTime = 15
 
 #commands to send to agent
 Accel = '1'
@@ -35,14 +36,7 @@ Back = '0'
 #################################### MAIN code begins here #########################################
 response = cmdAgent(PwrOn)
 print response
-difftime = time.clock() + prevtime
-#stringtime = str(difftime)
-#local variables
-endx = 0
-beginy = 0
-endy = 0
-beginz = 0
-endz = 0
+
 #functional loop
 while 1:
    elapsetime+=time.clock()
