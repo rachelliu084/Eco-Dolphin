@@ -11,10 +11,13 @@ fob = open('/home/pi/Eco-Dolphin1/ControlCenter_lkg_06112015/accel.txt','w')
 fob2 = open('/home/pi/Eco-Dolphin1/ControlCenter_lkg_06112015/ylocation.txt','w')
 port = '/dev/ttyACM0'
 baud = 4800
-response = ""
-timeOut = 1
+
 ser = serial.Serial(port, baud, timeout=timeOut)
 ser.open()
+
+#initialize variables
+response = ""
+timeOut = 1
 
 #commands to send to agent
 Accel = '1'
@@ -27,5 +30,36 @@ Rise = '7'
 Dive = '8'
 Fwd = '9'
 Back = '0'
+
+
+####################################main code begins here#################
+response = cmdAgent(PwrOn)
+print response
+difftime = time.clock() + prevtime
+#stringtime = str(difftime)
+#local variables
+endx = 0
+beginy = 0
+endy = 0
+beginz = 0
+endz = 0
+#functional loop
+while 1:
+   elapsetime+=time.clock()
+   #check if destination has been reached
+   if (isLocation):
+        #hover for a prescribe amount of time before retreat
+           ser.write(Hover(hoverTime))
+           print 'Hovering'
+           resurface()
+           response  = cmdAgent(PwrOff)
+   else:
+                #check the state of the agent
+        if response == "" or response == 'Ready':
+               print 'Ready'
+        else:#add Ready, Abort, Override option
+               print 'Not Ready'
+               response = cmdAgent(PwrOn)
+  
 
 
