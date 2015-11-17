@@ -69,7 +69,7 @@ ygraphpos = list()
 zgraphpos = list()
 #Cp = measure battery
 
-#loop counters
+#loop counter
 
 i = 0 #for file population (maximum: 100)
 n = 0 #for IMU calibration (average acceleration)
