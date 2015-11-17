@@ -5,3 +5,8 @@
 import serial
 import math
 import time
+
+fob = open('/home/pi/Eco-Dolphin1/ControlCenter_lkg_06112015/accel.txt','w')
+fob2 = open('/home/pi/Eco-Dolphin1/ControlCenter_lkg_06112015/ylocation.txt','w')
+port = '/dev/ttyACM0'
+baud = 4800
