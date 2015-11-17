@@ -7,8 +7,8 @@ import math
 import time
 
 #set up communication: publish info received from serial port to appropriate file
-fob = open('/home/pi/Eco-Dolphin1/ControlCenter_output/accel.txt','w')
-fob2 = open('/home/pi/Eco-Dolphin1/ControlCenter_output/ylocation.txt','w')
+fob = open('/home/pi/Eco-Dolphin/ControlCenter_output/accel.txt','w')
+fob2 = open('/home/pi/Eco-Dolphin/ControlCenter_output/ylocation.txt','w')
 port = '/dev/ttyACM0'
 baud = 4800
 
