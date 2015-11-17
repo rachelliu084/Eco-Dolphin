@@ -6,13 +6,17 @@ import serial
 import math
 import time
 
+#set up communication: publish info received from serial port to appropriate file
 fob = open('/home/pi/Eco-Dolphin1/ControlCenter_lkg_06112015/accel.txt','w')
 fob2 = open('/home/pi/Eco-Dolphin1/ControlCenter_lkg_06112015/ylocation.txt','w')
 port = '/dev/ttyACM0'
 baud = 4800
 response = ""
+timeOut = 1
+ser = serial.Serial(port, baud, timeOut)
+ser.open()
 
-#commands to agent
+#commands to send to agent
 Accel = '1'
 PwrOn = '2'
 PwrOff = '3'
@@ -23,4 +27,5 @@ Rise = '7'
 Dive = '8'
 Fwd = '9'
 Back = '0'
+
 
