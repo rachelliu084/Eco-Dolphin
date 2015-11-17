@@ -5,6 +5,23 @@
 import serial
 import math
 import time
+import avoid
+import checkpoint
+import cmdAgent
+import getHeading
+import getPosGraph
+import isfloat
+import getPosition
+import hover
+import proximity
+import resurface
+import separateString
+import setAcceleration
+import setBoundary
+import setPoint
+import setTarget
+import surface
+import toll
 
 #set up communication: publish info received from serial port to appropriate file
 fob = open('/home/pi/Eco-Dolphin/ControlCenter_output/accel.txt','w')
@@ -18,7 +35,6 @@ ser.open()
 #initialize variables
 response = ""
 timeOut = 1
-hoverTime = 15
 
 #commands to send to agent
 Accel = '1'
@@ -36,7 +52,14 @@ Back = '0'
 #################################### MAIN code begins here #########################################
 response = cmdAgent(PwrOn)
 print response
-
+difftime = time.clock() + prevtime
+#stringtime = str(difftime)
+#local variables
+endx = 0
+beginy = 0
+endy = 0
+beginz = 0
+endz = 0
 #functional loop
 while 1:
    elapsetime+=time.clock()
