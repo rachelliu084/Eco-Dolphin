@@ -64,6 +64,7 @@ while 1:
            print 'Hovering'
            resurface()
            response  = cmdAgent(PwrOff)
+           print elapsetime
    else:
                 #check the state of the agent
         if response == "" or response == 'Ready':
