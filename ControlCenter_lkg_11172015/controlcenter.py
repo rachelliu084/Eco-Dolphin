@@ -7,8 +7,8 @@ import math
 import time
 
 #set up communication: publish info received from serial port to appropriate file
-fob = open('/home/pi/Eco-Dolphin1/ControlCenter_lkg_06112015/accel.txt','w')
-fob2 = open('/home/pi/Eco-Dolphin1/ControlCenter_lkg_06112015/ylocation.txt','w')
+fob = open('/home/pi/Eco-Dolphin1/ControlCenter_output/accel.txt','w')
+fob2 = open('/home/pi/Eco-Dolphin1/ControlCenter_output/ylocation.txt','w')
 port = '/dev/ttyACM0'
 baud = 4800
 
@@ -32,7 +32,7 @@ Fwd = '9'
 Back = '0'
 
 
-####################################main code begins here#################
+#################################### MAIN code begins here #########################################
 response = cmdAgent(PwrOn)
 print response
 difftime = time.clock() + prevtime
