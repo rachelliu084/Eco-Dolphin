@@ -69,7 +69,7 @@ ygraphpos = list()
 zgraphpos = list()
 #Cp = measure battery
 
-#loop counters
+#loop counter
 
 i = 0 #for file population (maximum: 100)
 n = 0 #for IMU calibration (average acceleration)
@@ -101,34 +101,7 @@ ser.open()
 
 
 
-    #getCurrent()
-        #goaldistance = math.sqrt((math.pow((destinationx-currentx),2))+(math.pow((destinationy-currenty),2))+(math.pow((destinationz-currentz),2)))
-        #goaltime = (current speed)/goaldistance
-        #Itime = (Cp/math.pow(get.Current(),1.333))
-        #tolIt = Itime- goaltime
-
-#def chkabort():
-        #getCurrent()
-        #tolI()
-        #print getCurrent()
-        #if
-           #tolIt < 0
-           #resurface()
-           #set destination[0,0,0]
-           #print 'abort'
-        #else
-           #continue
-
-#def chkoverride():
-        #ser.readline()
-        #if
-           #ser.readline() = 'override'
-           #resurface()
-           #set destination[0,0,0]
-           #print 'override'
-        #else
-           #continue
-
+   
 #main code begins here
 setBoundary.setBoundary(bounds[0],bounds[1],bounds[2])
 response = cmdAgent.cmdAgent(PwrOn)
@@ -161,28 +134,7 @@ while i < 11:
 
           # cmdAgent(Fwd)
           # time.sleep(1) 
-          # cmdAgent(Back)
-          # time.sleep(1)
-          # cmdAgent(Right)
-          # time.sleep(1)
-          # cmdAgent(Fwd)
-          # time.sleep(1)
-          # cmdAgent(Left)
-          # time.sleep(1)
-          # cmdAgent(Fwd)
-	        # time.sleep(1)
-          # cmdAgent(Dive)
-          # time.sleep(1)
-          # cmdAgent(Rise)
-          # time.sleep(1)
-          # cmdAgent(Left)
-          # time.sleep(1)
-          # cmdAgent(Fwd)
-          # time.sleep(1)
-          # cmd.Agent(Left)
-          # time.sleep(1)
-          # cmd.Agent(Fwd)
-          # time.sleep(1)
+         
            
           # cmdAgent(PwrOff)
            #cmdAgent(PwrOn)
